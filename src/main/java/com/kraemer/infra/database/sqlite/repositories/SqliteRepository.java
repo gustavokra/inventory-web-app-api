@@ -41,7 +41,7 @@ public class SqliteRepository implements IUserRepository {
             String formattedCondition;
             if (val.getFieldValue() != null) {
                 formattedCondition = val.getFieldName() + " = ?" + paramIndex++;
-                params.add(val.getFieldValue()); // Adiciona o valor individualmente
+                params.add(val.getFieldValue());
             } else {
                 formattedCondition = val.getFieldName() + " IS NULL";
             }
