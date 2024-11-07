@@ -32,11 +32,6 @@ public class CreateUserTest {
     @InjectMocks
     private CreateUser createUser;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
     void testExecuteIfUserNotExists() {
 

@@ -33,12 +33,12 @@ public class CreateUser {
         return UserMapper.toDTO(userBO);
     }
 
-    private void verifyExistingUser(String name, String email) {
+    public void verifyExistingUser(String name, String email) {
         verifyExistingUserByName(name);
         verifyExistingUserByEmail(email);
     }
 
-    private void verifyExistingUserByName(String name) {
+    public void verifyExistingUserByName(String name) {
         QueryFieldInfoVO nameField = new QueryFieldInfoVO("name", name);
         var existentUser = repository.findFirstBy(List.of(nameField));
         if(existentUser != null) {
@@ -46,7 +46,7 @@ public class CreateUser {
         }
     }
 
-    private void verifyExistingUserByEmail(String email) {
+    public void verifyExistingUserByEmail(String email) {
         QueryFieldInfoVO emailField = new QueryFieldInfoVO("email", email);
         var existentUser = repository.findFirstBy(List.of(emailField));
         if(existentUser != null) {
