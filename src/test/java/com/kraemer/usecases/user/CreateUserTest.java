@@ -1,6 +1,7 @@
 package com.kraemer.usecases.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.times;
@@ -10,10 +11,10 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InOrder;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -31,6 +32,12 @@ public class CreateUserTest {
     @Mock
     private IUserRepository repository;
 
+    @Captor
+    private ArgumentCaptor<UserBO> captorUserBO;
+
+    @Captor
+    private ArgumentCaptor<String> captorString;
+
     @Spy
     @InjectMocks
     private CreateUser createUser;
@@ -45,17 +52,33 @@ public class CreateUserTest {
         when(repository.create(any())).thenReturn(userBO);
 
         UserDTO result = createUser.execute(userDTO);
-        verify(repository, times(2)).findFirstBy(anyList());
-        verify(repository).create(any());
-
-        verify(createUser, times(1)).verifyExistingUser(userDTO.getName(), userDTO.getEmail());
-        verify(createUser, times(1)).verifyExistingUserByName(userDTO.getName());
-        verify(createUser, times(1)).verifyExistingUserByEmail(userDTO.getEmail());
 
         assertEquals(userDTO.getName(), result.getName());
         assertEquals(userDTO.getEmail(), result.getEmail());
         assertEquals(userDTO.getPassword(), result.getPassword());
         assertEquals(userDTO.getConfirmPassword(), result.getConfirmPassword());
+        
+        verify(createUser, times(1)).verifyExistingUser(userDTO.getName(), userDTO.getEmail());
+        verify(createUser).verifyExistingUser(captorString.capture(), captorString.capture());
+        assertEquals(userDTO.getName(), captorString.getAllValues().get(0));
+        assertEquals(userDTO.getEmail(), captorString.getAllValues().get(1));
+
+        verify(createUser, times(1)).verifyExistingUserByName(userDTO.getName());
+        verify(createUser).verifyExistingUserByName(captorString.capture());
+        assertEquals(userDTO.getName(), captorString.getAllValues().get(2));
+
+        verify(createUser, times(1)).verifyExistingUserByEmail(userDTO.getEmail());
+        verify(createUser).verifyExistingUserByEmail(captorString.capture());
+        assertEquals(userDTO.getEmail(), captorString.getAllValues().get(3));
+
+        verify(repository, times(2)).findFirstBy(anyList());
+
+        verify(repository).create(any());
+        verify(repository).create(captorUserBO.capture());
+        assertEquals(userBO.getName(), captorUserBO.getValue().getName());
+        assertEquals(userBO.getEmail(), captorUserBO.getValue().getEmail());
+        assertNotEquals(userBO.getPassword(), captorUserBO.getValue().getPassword());
+        assertEquals(userBO.getConfirmPassword(), captorUserBO.getValue().getConfirmPassword());
     }
 
     @Test

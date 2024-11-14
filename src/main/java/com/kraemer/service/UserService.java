@@ -1,5 +1,6 @@
 package com.kraemer.service;
 
+import com.kraemer.domain.entities.dto.TokenDTO;
 import com.kraemer.domain.entities.dto.UserDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.usecases.user.CreateUser;
@@ -19,7 +20,7 @@ public class UserService extends AbstractService {
         return createUser.execute(dto);
     }
 
-    public String login(UserDTO credentials, EnumDBImpl dbImpl) {
+    public TokenDTO login(UserDTO credentials, EnumDBImpl dbImpl) {
         var repository = dbFactory.getImpl(dbImpl);
         var loginUser = new LoginUser(repository);
         return loginUser.execute(credentials);

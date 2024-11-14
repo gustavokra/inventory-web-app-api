@@ -25,7 +25,7 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(UserDTO userDTO, @HeaderParam EnumDBImpl dbImpl) {
         var created = userService.create(userDTO, dbImpl);
-        
+
         return Response.ok(created).build();
     }
 
@@ -35,9 +35,9 @@ public class UserController {
     public Response login(UserDTO userCredentials, @HeaderParam EnumDBImpl dbImpl) {
         var token = userService.login(userCredentials, dbImpl);
 
-        return token != null ?
-            Response.ok(new TokenDTO(token)).build() :
-            Response.status(Response.Status.UNAUTHORIZED).build();
+        return token != null
+                ? Response.ok(token).build()
+                : Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
 }
