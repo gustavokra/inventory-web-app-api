@@ -22,6 +22,7 @@ public class CreateUser {
 
         var userBO = UserMapper.toBO(dto);
 
+
         userBO.validateEmail();
 
         userBO.validatePassword();

@@ -16,10 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.kraemer.TestUtil;
 import com.kraemer.domain.entities.mappers.UserMapper;
 import com.kraemer.domain.entities.repositories.IUserRepository;
-import com.kraemer.domain.usecases.user.LoginUser;
+import com.kraemer.domain.usecases.auth.LoginUser;
 
 @ExtendWith(MockitoExtension.class)
-public class LoginUserTest {
+public class AuthLoginTest {
 
     @Mock
     private IUserRepository repository;
@@ -29,23 +29,23 @@ public class LoginUserTest {
 
     @Test
     void testSucessLoginUser() {
-        var userDTO = TestUtil.createUserDTO();
-        var userBO = UserMapper.toBO(userDTO);
+        var userCredentials = TestUtil.createUserCredentialsDTO();
+        var userBO = UserMapper.toBO(userCredentials);
 
         when(repository.findFirstBy(anyList())).thenReturn(userBO);
 
-        var token = loginUser.execute(userDTO);
+        var token = loginUser.execute(userCredentials);
 
         assertNotNull(token);
     }
 
     @Test
     void testFailLoginUser() {
-        var userDTO = TestUtil.createUserDTO();
+        var userCredentials = TestUtil.createUserCredentialsDTO();
 
         when(repository.findFirstBy(anyList())).thenReturn(null);
 
-        var token = loginUser.execute(userDTO);
+        var token = loginUser.execute(userCredentials);
 
         assertNull(token);
     }

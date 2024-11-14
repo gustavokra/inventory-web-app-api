@@ -3,9 +3,8 @@ package com.kraemer.presentation.controllers;
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
 import com.kraemer.domain.entities.dto.UserCredentialsDTO;
-import com.kraemer.domain.entities.dto.UserDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
-import com.kraemer.service.UserService;
+import com.kraemer.service.AuthService;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
@@ -15,20 +14,22 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("api/v1/user")
-public class UserController {
+@Path("api/v1/auth")
+public class AuthController {
 
     @Inject
-    private UserService userService;
+    private AuthService service;
 
     @POST
     @PermitAll
-    @Path("/cadaster")
+    @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(UserDTO userDTO, @HeaderParam EnumDBImpl dbImpl) {
-        var created = userService.create(userDTO, dbImpl);
+    public Response login(UserCredentialsDTO userCredentials, @HeaderParam EnumDBImpl dbImpl) {
+        var token = service.login(userCredentials, dbImpl);
 
-        return Response.ok(created).build();
+        return token != null
+                ? Response.ok(token).build()
+                : Response.status(Response.Status.UNAUTHORIZED).build();
     }
-
+    
 }

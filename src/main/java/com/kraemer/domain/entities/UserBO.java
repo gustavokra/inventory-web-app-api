@@ -25,6 +25,11 @@ public class UserBO {
         validate();
     }
 
+    public UserBO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,9 +1,14 @@
 package com.kraemer.domain.entities.mappers;
 
 import com.kraemer.domain.entities.UserBO;
+import com.kraemer.domain.entities.dto.UserCredentialsDTO;
 import com.kraemer.domain.entities.dto.UserDTO;
 
 public class UserMapper {
+
+    public static UserBO toBO(UserCredentialsDTO dto) {
+        return new UserBO(dto.getEmail(), dto.getPassword());
+    }
 
     public static UserBO toBO(UserDTO dto) {
         return new UserBO(dto.getName(),
