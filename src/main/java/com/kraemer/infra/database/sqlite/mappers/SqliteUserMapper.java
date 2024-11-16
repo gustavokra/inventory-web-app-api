@@ -9,7 +9,9 @@ public class SqliteUserMapper {
         return new UserBO(entity.getName(),
         entity.getEmail(),
         entity.getPassword(),
-        null);
+        null,
+        SqliteRoleMapper.toEnum(entity.getRoles())
+        );
     }
 
     public static SqliteUser toEntity(UserBO bo) {
@@ -17,6 +19,7 @@ public class SqliteUserMapper {
         entity.setName(bo.getName());
         entity.setEmail(bo.getEmail());
         entity.setPassword(bo.getPassword());
+        entity.setRoles(SqliteRoleMapper.toEntity(bo.getRoles()));
         return entity;
     }
 

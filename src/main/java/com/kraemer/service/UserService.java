@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 public class UserService extends AbstractService {
 
     @Transactional
-
     public UserDTO create(UserDTO dto, EnumDBImpl dbImpl) {
         var repository = dbFactory.getImpl(dbImpl);
         var createUser = new CreateUser(repository);

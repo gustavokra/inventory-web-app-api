@@ -14,7 +14,9 @@ public class UserMapper {
         return new UserBO(dto.getName(),
                 dto.getEmail(),
                 dto.getPassword(),
-                dto.getConfirmPassword());
+                dto.getConfirmPassword(),
+                dto.getRoles()
+                );
     }
 
     public static UserDTO toDTO(UserBO bo) {

@@ -1,5 +1,9 @@
 package com.kraemer.domain.entities.dto;
 
+import java.util.Set;
+
+import com.kraemer.domain.entities.enums.EnumRole;
+
 public class UserDTO {
 
     private String name;
@@ -9,6 +13,8 @@ public class UserDTO {
     private String password;
 
     private String confirmPassword;
+
+    private Set<EnumRole> roles;
 
     public String getName() {
         return name;
@@ -40,6 +46,14 @@ public class UserDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public Set<EnumRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<EnumRole> roles) {
+        this.roles = roles;
     }
     
 }

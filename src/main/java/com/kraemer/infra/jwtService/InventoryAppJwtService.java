@@ -9,9 +9,23 @@ import jakarta.inject.Singleton;
 
 @Singleton
 public class InventoryAppJwtService {
-    public String generateJwt() {
+    public String generateAdminJwt() {
         Set<String> roles = new HashSet<>(
-                Arrays.asList("admin", "user")
+                Arrays.asList("ADMIN", "USER")
+        );
+
+        return Jwt.issuer("IventoryAppApi")
+                .subject("IventoryAppApi")
+                .groups(roles)
+                .expiresAt(
+                        System.currentTimeMillis() + 3600
+                )
+                .sign();
+    }
+
+    public String generateUserJwt() {
+        Set<String> roles = new HashSet<>(
+                Arrays.asList("USER")
         );
 
         return Jwt.issuer("IventoryAppApi")

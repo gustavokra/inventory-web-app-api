@@ -21,8 +21,8 @@ public class AuthController {
     private AuthService service;
 
     @POST
-    @PermitAll
     @Path("/login")
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserCredentialsDTO userCredentials, @HeaderParam EnumDBImpl dbImpl) {
         var token = service.login(userCredentials, dbImpl);
@@ -31,5 +31,5 @@ public class AuthController {
                 ? Response.ok(token).build()
                 : Response.status(Response.Status.UNAUTHORIZED).build();
     }
-    
+
 }
