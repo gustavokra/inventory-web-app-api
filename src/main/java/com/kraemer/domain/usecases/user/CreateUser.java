@@ -18,11 +18,12 @@ public class CreateUser {
     }
 
     public UserDTO execute(UserDTO dto) {
-        verifyExistingUser(dto.getName(), dto.getEmail());
 
         var userBO = UserMapper.toBO(dto);
 
         userBO.validateEmail();
+
+        verifyExistingUser(userBO.getName(), userBO.getEmail());
 
         userBO.validatePassword();
 
@@ -42,7 +43,7 @@ public class CreateUser {
         QueryFieldInfoVO nameField = new QueryFieldInfoVO("name", name);
         var existentUser = repository.findFirstBy(List.of(nameField));
         if(existentUser != null) {
-            throw new InvetoryAppException(EnumErrorCode.USUARIO_CADASTRADO);
+            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com nome " + name );
         }
     }
 
@@ -50,7 +51,7 @@ public class CreateUser {
         QueryFieldInfoVO emailField = new QueryFieldInfoVO("email", email);
         var existentUser = repository.findFirstBy(List.of(emailField));
         if(existentUser != null) {
-            throw new InvetoryAppException(EnumErrorCode.USUARIO_CADASTRADO);
+            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com email " + email);
         }
     }
 

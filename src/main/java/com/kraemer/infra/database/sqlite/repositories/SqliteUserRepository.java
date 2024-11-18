@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.kraemer.domain.entities.UserBO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
@@ -18,7 +17,7 @@ import com.kraemer.infra.database.sqlite.model.SqliteUser;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class SqliteRepository implements IUserRepository {
+public class SqliteUserRepository implements IUserRepository {
 
     public UserBO create(UserBO bo) {
         var panacheUser = SqliteUserMapper.toEntity(bo);
@@ -77,7 +76,7 @@ public class SqliteRepository implements IUserRepository {
 
         return ListUtil.stream(SqliteUser.list(query.toString(), params.toArray()))
                 .map(value -> SqliteUserMapper.toDomain((SqliteUser) value))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

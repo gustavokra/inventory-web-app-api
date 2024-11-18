@@ -6,6 +6,8 @@ import com.kraemer.domain.entities.enums.EnumRole;
 
 public class UserDTO {
 
+    private Long id;
+
     private String name;
 
     private String email;
@@ -15,6 +17,14 @@ public class UserDTO {
     private String confirmPassword;
 
     private Set<EnumRole> roles;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

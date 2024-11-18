@@ -1,6 +1,5 @@
 package com.kraemer.domain.entities;
 
-import java.util.List;
 import java.util.Set;
 
 import com.kraemer.domain.entities.enums.EnumErrorCode;
@@ -16,11 +15,11 @@ public class UserBO {
     String name;
 
     String email;
-    
+
     String password;
 
     String confirmPassword;
-    
+
     Set<EnumRole> roles;
 
     public UserBO(String name, String email, String password, String confirmPassword, Set<EnumRole> roles) {
@@ -37,43 +36,24 @@ public class UserBO {
         this.password = password;
     }
 
-    private void validate() {
-    
-        if(StringUtil.isNullOrEmpty(name)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Nome");
-        }
-    
-        if(StringUtil.isNullOrEmpty(email)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "E-mail");
-        }
-    
-        if(StringUtil.isNullOrEmpty(password)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
-        }
-
-        if(ListUtil.isNullOrEmpty(roles)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
-        }
-    }
-
     public void validateEmail() {
-        if(!EmailUtil.isValidEmail(email)) {
+        if (!EmailUtil.isValidEmail(email)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "E-mail");
         }
     }
 
     public void validatePassword() {
-        if(StringUtil.isNullOrEmpty(confirmPassword)) {
+        if (StringUtil.isNullOrEmpty(confirmPassword)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Confirmar senha");
         }
 
-        if(!confirmPassword.equals(password)) {
+        if (!confirmPassword.equals(password)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Confirmar senha");
         }
     }
 
     public void validateRoles() {
-        if(ListUtil.isNotNullOrEmpty(roles)) {
+        if (ListUtil.isNotNullOrEmpty(roles)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
         }
     }
@@ -102,5 +82,23 @@ public class UserBO {
         return roles;
     }
 
+    private void validate() {
+
+        if (StringUtil.isNullOrEmpty(name)) {
+            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Nome");
+        }
+
+        if (StringUtil.isNullOrEmpty(email)) {
+            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "E-mail");
+        }
+
+        if (StringUtil.isNullOrEmpty(password)) {
+            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
+        }
+
+        if (ListUtil.isNullOrEmpty(roles)) {
+            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
+        }
+    }
+
 }
- 

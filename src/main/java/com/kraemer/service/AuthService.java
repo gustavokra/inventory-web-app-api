@@ -6,7 +6,7 @@ import com.kraemer.domain.entities.dto.UserCredentialsDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.entities.enums.EnumRole;
 import com.kraemer.domain.usecases.auth.LoginUser;
-import com.kraemer.infra.jwtService.InventoryAppJwtService;
+import com.kraemer.infra.auth.jwt.InventoryAppJwtService;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -20,7 +20,7 @@ public class AuthService extends AbstractService {
 
     @Transactional
     public TokenDTO login(UserCredentialsDTO credentials, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getImpl(dbImpl);
+        var repository = dbFactory.getUserImpl(dbImpl);
         var loginUser = new LoginUser(repository);
         var userLoged = loginUser.execute(credentials);
 

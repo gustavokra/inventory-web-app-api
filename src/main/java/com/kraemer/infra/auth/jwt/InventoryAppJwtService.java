@@ -1,4 +1,4 @@
-package com.kraemer.infra.jwtService;
+package com.kraemer.infra.auth.jwt;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @POST
-    @RolesAllowed({"ADMIN"})
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(UserDTO userDTO, @HeaderParam EnumDBImpl dbImpl) {
