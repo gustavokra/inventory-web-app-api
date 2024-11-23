@@ -75,10 +75,6 @@ public class ProductBO {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
         }
 
-        if(StringUtil.isNullOrEmpty(this.image)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "imagem");
-        }
-
         if(Objects.isNull(this.supplier)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "fornecedor");
         }
@@ -86,6 +82,37 @@ public class ProductBO {
         if(Objects.isNull(this.supplier.getId())) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id do fornecedor");
         }
+    }
+
+    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image) {
+        if(StringUtil.isNotNullOrEmpty(name)) {
+            this.name = name;
+        }
+
+        if(StringUtil.isNotNullOrEmpty(description)) {
+            this.description = description;
+        }
+
+        if(!NumericUtil.isGreaterThanZero(price)) {
+           throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+        }
+
+        if(!NumericUtil.isNullOrZero(price)) {
+            this.price = price;
+        }
+
+        if(NumericUtil.isLessOrEquals(quantity, -1)) {
+            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
+        }
+
+        if(!NumericUtil.isNullOrZero(quantity)) {
+            this.quantity = quantity;
+        }
+
+        if(StringUtil.isNotNullOrEmpty(image)) {
+            this.image = image;
+        }
+        
     }
 
 }

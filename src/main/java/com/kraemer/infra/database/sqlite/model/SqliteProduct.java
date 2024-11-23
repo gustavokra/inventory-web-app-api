@@ -36,7 +36,7 @@ public class SqliteProduct extends PanacheEntityBase {
 
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id")
     private SqliteSupplier supplier;
 

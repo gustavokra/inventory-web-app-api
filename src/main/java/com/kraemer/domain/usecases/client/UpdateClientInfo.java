@@ -22,21 +22,6 @@ public class UpdateClientInfo {
     }
 
     public ClientDTO execute(ClientDTO dto, Long id) {
-        var existingClientBO = verifyExistingClientId(id);
-
-        existingClientBO.handleUpdateInfo(
-                dto.getName(),
-                dto.getDocument(),
-                dto.getContact(),
-                dto.getAddress(),
-                dto.isActive());
-
-        repository.merge(existingClientBO);
-
-        return ClientMapper.toDTO(existingClientBO);
-    }
-
-    private ClientBO verifyExistingClientId(Long id) {
         verifyId(id);
 
         var idField = new QueryFieldInfoVO("id", String.valueOf(id));
@@ -47,7 +32,14 @@ public class UpdateClientInfo {
             throw new InvetoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "cliente", "id", id);
         }
 
-        return existingClientBO;
+        existingClientBO.handleUpdateInfo(
+                dto.getName(),
+                dto.getDocument(),
+                dto.getContact(),
+                dto.getAddress(),
+                dto.isActive());
+
+        return ClientMapper.toDTO(repository.merge(existingClientBO));
     }
 
     private void verifyId(Long id) {
