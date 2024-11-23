@@ -3,7 +3,6 @@ package com.kraemer.infra.database.sqlite.model;
 import java.math.BigDecimal;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,6 +38,8 @@ public class SqliteProduct extends PanacheEntityBase {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id")
     private SqliteSupplier supplier;
+
+    private Boolean active;
 
     public Long getId() {
         return id;
@@ -94,6 +95,14 @@ public class SqliteProduct extends PanacheEntityBase {
 
     public void setSupplier(SqliteSupplier supplier) {
         this.supplier = supplier;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
 }

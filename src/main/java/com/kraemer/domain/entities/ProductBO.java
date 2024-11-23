@@ -9,7 +9,7 @@ import com.kraemer.domain.utils.StringUtil;
 import com.kraemer.domain.utils.exception.InvetoryAppException;
 
 public class ProductBO {
-    
+
     private Long id;
 
     private String name;
@@ -24,8 +24,10 @@ public class ProductBO {
 
     private SupplierBO supplier;
 
+    private Boolean active;
+
     public ProductBO(Long id, String name, String description, BigDecimal price, Integer quantity, String image,
-            SupplierBO supplier) {
+            SupplierBO supplier, Boolean active) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -33,6 +35,7 @@ public class ProductBO {
         this.quantity = quantity;
         this.image = image;
         this.supplier = supplier;
+        this.active = active;
 
         validate();
     }
@@ -65,54 +68,67 @@ public class ProductBO {
         return supplier;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     private void validate() {
 
-        if(NumericUtil.isNullOrZero(this.price)) {
+        if (NumericUtil.isNullOrZero(this.price)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
         }
 
-        if(NumericUtil.isLessOrEqualsZero(this.quantity)) {
+        if (NumericUtil.isLessOrEqualsZero(this.quantity)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
         }
 
-        if(Objects.isNull(this.supplier)) {
+        if (Objects.isNull(this.supplier)) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "fornecedor");
         }
 
-        if(Objects.isNull(this.supplier.getId())) {
+        if (Objects.isNull(this.supplier.getId())) {
             throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id do fornecedor");
         }
     }
 
-    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image) {
-        if(StringUtil.isNotNullOrEmpty(name)) {
+    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image,
+            Boolean active) {
+        if (StringUtil.isNotNullOrEmpty(name)) {
             this.name = name;
         }
 
-        if(StringUtil.isNotNullOrEmpty(description)) {
+        if (StringUtil.isNotNullOrEmpty(description)) {
             this.description = description;
         }
 
-        if(!NumericUtil.isGreaterThanZero(price)) {
-           throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+        if (!NumericUtil.isNullOrZero(quantity)) {
+            if (!NumericUtil.isGreaterThanZero(price)) {
+                throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+            }
         }
 
-        if(!NumericUtil.isNullOrZero(price)) {
-            this.price = price;
+        if (!NumericUtil.isNullOrZero(quantity)) {
+            if (!NumericUtil.isLessOrEqualsZero(price)) {
+                this.price = price;
+            }
         }
 
-        if(NumericUtil.isLessOrEquals(quantity, -1)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
-        }
-
-        if(!NumericUtil.isNullOrZero(quantity)) {
+        if (NumericUtil.isGreater(quantity, -1)) {
             this.quantity = quantity;
         }
 
-        if(StringUtil.isNotNullOrEmpty(image)) {
+        if (StringUtil.isNotNullOrEmpty(image)) {
             this.image = image;
         }
-        
+
+        if (active != null) {
+            this.active = active;
+        }
+
     }
 
 }

@@ -21,6 +21,8 @@ public class SqliteProductMapper {
             entity.setSupplier(SqliteSupplierMapper.toEntity(domain.getSupplier()));
         }
 
+        entity.setActive(domain.getActive());
+
         return entity;
     }
 
@@ -36,7 +38,8 @@ public class SqliteProductMapper {
             entity.getPrice(),
             entity.getQuantity(),
             entity.getImage(),
-            entity.getSupplier() != null ? SqliteSupplierMapper.toDomain(entity.getSupplier()) : null
+            entity.getSupplier() != null ? SqliteSupplierMapper.toDomain(entity.getSupplier()) : null,
+            entity.getActive()
         );
     }
 }

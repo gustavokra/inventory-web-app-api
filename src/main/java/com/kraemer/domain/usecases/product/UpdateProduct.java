@@ -33,16 +33,19 @@ public class UpdateProduct {
                 dto.getDescription(),
                 dto.getPrice(),
                 dto.getQuantity(),
-                dto.getImage());
+                dto.getImage(),
+                dto.getActive());
 
-        var supplierDTO = existingProduct.getSupplier();
+        if (dto.getSupplier() != null) {
+            var supplierDTO = dto.getSupplier();
 
-        existingProduct.getSupplier()
-                .handleUpdateInfo(supplierDTO.getName(),
-                        supplierDTO.getDocument(),
-                        supplierDTO.getContact(),
-                        supplierDTO.getAddress(),
-                        supplierDTO.isActive());
+            existingProduct.getSupplier()
+                    .handleUpdateInfo(supplierDTO.getName(),
+                            supplierDTO.getDocument(),
+                            supplierDTO.getContact(),
+                            supplierDTO.getAddress(),
+                            supplierDTO.isActive());
+        }
 
         return ProductMapper.toDTO(repository.merge(existingProduct));
     }

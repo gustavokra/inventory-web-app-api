@@ -20,18 +20,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("api/v1/supplier")
 public class SupplierController {
+
     @Inject
     private SupplierService service;
-
-    @POST
-    @RolesAllowed({ "ADMIN", "USER" })
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(SupplierDTO dto, @HeaderParam EnumDBImpl dbImpl) {
-        var createdSupplier = service.create(dto, dbImpl);
-
-        return Response.ok(createdSupplier).build();
-    }
 
     @GET
     @RolesAllowed({ "ADMIN", "USER" })
@@ -42,8 +33,18 @@ public class SupplierController {
         return Response.ok(allSuppliers).build();
     }
 
+    @POST
+    @RolesAllowed({ "ADMIN" })
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(SupplierDTO dto, @HeaderParam EnumDBImpl dbImpl) {
+        var createdSupplier = service.create(dto, dbImpl);
+
+        return Response.ok(createdSupplier).build();
+    }
+
     @PUT
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateSupplierInfo(
             SupplierDTO dto,

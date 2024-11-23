@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @POST
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(ProductDTO dto, @HeaderParam EnumDBImpl dbImpl) {
@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     @PUT
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(
@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @DELETE
-    @RolesAllowed({"ADMIN", "USER"})
+    @RolesAllowed({ "ADMIN" })
     @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@HeaderParam Long id, @HeaderParam EnumDBImpl dbImpl) {
         service.delete(id, dbImpl);
@@ -66,4 +66,3 @@ public class ProductController {
     }
 
 }
- 

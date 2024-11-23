@@ -18,6 +18,8 @@ public class ProductDTO {
 
     private SupplierDTO supplier;
 
+    private Boolean active;
+
     public Long getId() {
         return id;
     }
@@ -72,6 +74,14 @@ public class ProductDTO {
 
     public void setSupplier(SupplierDTO supplier) {
         this.supplier = supplier;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
 }

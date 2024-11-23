@@ -7,7 +7,6 @@ import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.service.UserService;
 
 import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;

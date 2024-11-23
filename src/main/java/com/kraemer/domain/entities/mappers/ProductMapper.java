@@ -17,7 +17,8 @@ public class ProductMapper {
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),
-                SupplierMapper.idToBO(dto.getSupplier()));
+                SupplierMapper.idToBO(dto.getSupplier()),
+                dto.getActive());
     }
 
     public static ProductDTO toDTO(ProductBO bo) {
@@ -33,6 +34,7 @@ public class ProductMapper {
         dto.setQuantity(bo.getQuantity());
         dto.setImage(bo.getImage());
         dto.setSupplier(SupplierMapper.toDTO(bo.getSupplier()));
+        dto.setActive(bo.getActive());
 
         return dto;
     }

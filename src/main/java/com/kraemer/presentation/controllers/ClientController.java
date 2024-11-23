@@ -24,16 +24,6 @@ public class ClientController {
     @Inject
     private ClientService service;
 
-    @POST
-    @RolesAllowed({ "ADMIN", "USER" })
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(ClientDTO dto, @HeaderParam EnumDBImpl dbImpl) {
-        var createdClient = service.create(dto, dbImpl);
-
-        return Response.ok(createdClient).build();
-    }
-
     @GET
     @RolesAllowed({ "ADMIN", "USER" })
     @Produces(MediaType.APPLICATION_JSON)
@@ -43,8 +33,18 @@ public class ClientController {
         return Response.ok(allClients).build();
     }
 
+    @POST
+    @RolesAllowed({ "ADMIN" })
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(ClientDTO dto, @HeaderParam EnumDBImpl dbImpl) {
+        var createdClient = service.create(dto, dbImpl);
+
+        return Response.ok(createdClient).build();
+    }
+
     @PUT
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateClientInfo(
             ClientDTO dto,
