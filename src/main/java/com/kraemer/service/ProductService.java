@@ -2,7 +2,6 @@ package com.kraemer.service;
 
 import java.util.List;
 
-import com.kraemer.domain.entities.ProductBO;
 import com.kraemer.domain.entities.dto.ProductDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.usecases.product.CreateProduct;
@@ -18,7 +17,7 @@ public class ProductService extends AbstractService {
 
     @Transactional
     public ProductDTO create(ProductDTO dto, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getProductImpl(dbImpl);
+        var repository = dbFactory.getProductRepositoryImpl(dbImpl);
 
         var createProduct = new CreateProduct(repository);
 
@@ -26,7 +25,7 @@ public class ProductService extends AbstractService {
     }
 
     public List<ProductDTO> findAll(EnumDBImpl dbImpl) {
-        var repository = dbFactory.getProductImpl(dbImpl);
+        var repository = dbFactory.getProductRepositoryImpl(dbImpl);
 
         var findAllProducts = new FindAllProducts(repository);
 
@@ -35,7 +34,7 @@ public class ProductService extends AbstractService {
 
     @Transactional
     public ProductDTO update(ProductDTO dto, Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getProductImpl(dbImpl);
+        var repository = dbFactory.getProductRepositoryImpl(dbImpl);
 
         var updateProduct = new UpdateProduct(repository);
 
@@ -44,7 +43,7 @@ public class ProductService extends AbstractService {
 
     @Transactional
     public void delete(Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getProductImpl(dbImpl);
+        var repository = dbFactory.getProductRepositoryImpl(dbImpl);
 
         var deleteProduct = new DeleteProduct(repository);
 

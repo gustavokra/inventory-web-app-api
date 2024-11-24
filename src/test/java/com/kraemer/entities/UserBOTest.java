@@ -1,6 +1,5 @@
 package com.kraemer.entities;
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
@@ -8,22 +7,22 @@ import org.junit.jupiter.api.Test;
 
 import com.kraemer.domain.entities.UserBO;
 import com.kraemer.domain.entities.enums.EnumRole;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class UserBOTest {
 
         @Test
         void testValidate() {
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> new UserBO(null, "test", "test", "test", Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> new UserBO("test", null, "test", "test", Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> new UserBO("test", "test", "null", "test", Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertDoesNotThrow(
@@ -46,25 +45,25 @@ public class UserBOTest {
                 UserBO userInvalidEmail = new UserBO("test", "invalidEmail", "test", "test",
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> userInvalidEmail.validateEmail());
 
                 UserBO userInvalidEmail2 = new UserBO("test", "invalid@email", "test", "test",
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> userInvalidEmail2.validateEmail());
 
                 UserBO userInvalidEmail3 = new UserBO("test", "invalid.com", "test", "test",
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> userInvalidEmail3.validateEmail());
 
                 UserBO userInvalidEmail4 = new UserBO("test", "@email.com", "test", "test",
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
-                                InvetoryAppException.class,
+                                InventoryAppException.class,
                                 () -> userInvalidEmail4.validateEmail());
         }
 
@@ -79,12 +78,12 @@ public class UserBOTest {
         void testInvalidValidatePassword() {
                 UserBO userInvalidPassword = new UserBO("test", "test", "test", null,
                                 Set.of(EnumRole.parseByKey("admin")));
-                Assertions.assertThrows(InvetoryAppException.class,
+                Assertions.assertThrows(InventoryAppException.class,
                                 () -> userInvalidPassword.validatePassword());
 
                 UserBO userInvalidPassword2 = new UserBO("test", "test", "test", "invalid",
                                 Set.of(EnumRole.parseByKey("admin")));
-                Assertions.assertThrows(InvetoryAppException.class,
+                Assertions.assertThrows(InventoryAppException.class,
                                 () -> userInvalidPassword2.validatePassword());
         }
 

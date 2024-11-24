@@ -2,12 +2,11 @@ package com.kraemer.domain.usecases.client;
 
 import java.util.List;
 
-import com.kraemer.domain.entities.ClientBO;
 import com.kraemer.domain.entities.dto.ClientDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.ClientMapper;
 import com.kraemer.domain.entities.repositories.IClientRepository;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 import jakarta.inject.Inject;
@@ -29,7 +28,7 @@ public class UpdateClientInfo {
         var existingClientBO = repository.findFirstBy(List.of(idField));
 
         if (existingClientBO == null) {
-            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "cliente", "id", id);
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "cliente", "id", id);
         }
 
         existingClientBO.handleUpdateInfo(
@@ -45,7 +44,7 @@ public class UpdateClientInfo {
     private void verifyId(Long id) {
 
         if (id == null) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
         }
 
     }

@@ -12,7 +12,7 @@ public class UserService extends AbstractService {
 
     @Transactional
     public UserDTO create(UserDTO dto, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getUserImpl(dbImpl);
+        var repository = dbFactory.getUserRepositoryImpl(dbImpl);
         var createUser = new CreateUser(repository);
         return createUser.execute(dto);
     }

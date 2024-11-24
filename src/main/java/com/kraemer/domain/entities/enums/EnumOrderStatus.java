@@ -4,8 +4,8 @@ import com.kraemer.domain.utils.EnumUtil;
 
 public enum EnumOrderStatus implements IEnum {
 
-    PEN("Pendente"),
-    CON("Concluído");
+    PEN("Pending"),
+    CON("Completed");
 
     private String key;
 

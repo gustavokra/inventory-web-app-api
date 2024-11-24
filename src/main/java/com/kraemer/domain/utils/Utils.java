@@ -3,7 +3,7 @@ package com.kraemer.domain.utils;
 import java.util.UUID;
 
 import com.kraemer.domain.entities.enums.EnumErrorCode;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class Utils {
     @SuppressWarnings("unchecked")
@@ -21,7 +21,7 @@ public class Utils {
         try {
             return UUID.fromString(str);
         } catch (Exception e) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "UUID");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "UUID");
         }
     }
 

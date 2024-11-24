@@ -3,7 +3,6 @@ package com.kraemer.infra.database.sqlite.model;
 import java.util.Set;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +22,7 @@ public class SqliteUser extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column(nullable = false, length = 50)
@@ -32,11 +31,11 @@ public class SqliteUser extends PanacheEntityBase {
     @Column(nullable = false, length = 200)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_role",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
+        joinColumns = @JoinColumn(name = "user_id", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false)
     )
     private Set<SqliteRole> roles;
 

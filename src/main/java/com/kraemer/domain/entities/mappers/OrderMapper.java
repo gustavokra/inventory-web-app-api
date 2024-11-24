@@ -2,9 +2,10 @@ package com.kraemer.domain.entities.mappers;
 
 import com.kraemer.domain.entities.OrderBO;
 import com.kraemer.domain.entities.dto.OrderDTO;
+import com.kraemer.domain.entities.vo.CreatedAtVO;
 
 public class OrderMapper {
-    
+
     public static OrderBO toBO(OrderDTO dto) {
         if (dto == null) {
             return null;
@@ -12,10 +13,11 @@ public class OrderMapper {
 
         return new OrderBO(
                 dto.getId(),
-                dto.getDate(),
+                new CreatedAtVO(dto.getCreatedAt()),
                 dto.getClient() != null ? ClientMapper.toBO(dto.getClient()) : null,
-                dto.getStatus(),
-                dto.getTotalValue());
+                dto.getEnumStatus(),
+                dto.getTotalValue(),
+                dto.getItemsDTO().stream().map(OrderItemMapper::toBO).toList());
     }
 
     public static OrderDTO toDTO(OrderBO bo) {
@@ -25,11 +27,11 @@ public class OrderMapper {
 
         var dto = new OrderDTO();
         dto.setId(bo.getId());
-        dto.setDate(bo.getDate());
+        dto.setCreatedAt(bo.getCreatedAt().getValue());
         dto.setClient(bo.getClient() != null ? ClientMapper.toDTO(bo.getClient()) : null);
-        dto.setStatus(bo.getStatus());
+        dto.setEnumStatus(bo.getEnumStatus());
         dto.setTotalValue(bo.getTotalValue());
-
+        dto.setItemsDTO(bo.getItemsBO().stream().map(OrderItemMapper::toDTO).toList());
         return dto;
     }
 

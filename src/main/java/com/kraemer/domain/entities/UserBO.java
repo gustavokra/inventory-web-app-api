@@ -8,7 +8,7 @@ import com.kraemer.domain.utils.EmailUtil;
 import com.kraemer.domain.utils.ListUtil;
 import com.kraemer.domain.utils.PasswordUtils;
 import com.kraemer.domain.utils.StringUtil;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class UserBO {
 
@@ -38,23 +38,23 @@ public class UserBO {
 
     public void validateEmail() {
         if (!EmailUtil.isValidEmail(email)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "E-mail");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "E-mail");
         }
     }
 
     public void validatePassword() {
         if (StringUtil.isNullOrEmpty(confirmPassword)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Confirmar senha");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Confirmar senha");
         }
 
         if (!confirmPassword.equals(password)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Confirmar senha");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Confirmar senha");
         }
     }
 
     public void validateRoles() {
         if (ListUtil.isNotNullOrEmpty(roles)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
         }
     }
 
@@ -85,19 +85,19 @@ public class UserBO {
     private void validate() {
 
         if (StringUtil.isNullOrEmpty(name)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Nome");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Nome");
         }
 
         if (StringUtil.isNullOrEmpty(email)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "E-mail");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "E-mail");
         }
 
         if (StringUtil.isNullOrEmpty(password)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
         }
 
         if (ListUtil.isNullOrEmpty(roles)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cargo");
         }
     }
 

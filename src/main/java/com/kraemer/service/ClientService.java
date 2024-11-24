@@ -17,7 +17,7 @@ public class ClientService extends AbstractService {
     
     @Transactional
     public ClientDTO create(ClientDTO dto, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getClientImpl(dbImpl);
+        var repository = dbFactory.getClientRepositoryImpl(dbImpl);
         
         var createClient = new CreateClient(repository);
 
@@ -25,7 +25,7 @@ public class ClientService extends AbstractService {
     }
 
     public List<ClientDTO> findAll(EnumDBImpl dbImpl) {
-        var repository = dbFactory.getClientImpl(dbImpl);
+        var repository = dbFactory.getClientRepositoryImpl(dbImpl);
 
         var findAllClients = new FindAllClients(repository);
        
@@ -34,7 +34,7 @@ public class ClientService extends AbstractService {
 
     @Transactional
     public ClientDTO updateClientInfo(ClientDTO dto, Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getClientImpl(dbImpl);
+        var repository = dbFactory.getClientRepositoryImpl(dbImpl);
 
         var updateClientInfo = new UpdateClientInfo(repository);
 
@@ -43,7 +43,7 @@ public class ClientService extends AbstractService {
 
     @Transactional
     public void delete(Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getClientImpl(dbImpl);
+        var repository = dbFactory.getClientRepositoryImpl(dbImpl);
         
         var deleteClient = new DeleteClient(repository);
 

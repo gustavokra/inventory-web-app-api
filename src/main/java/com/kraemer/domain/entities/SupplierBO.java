@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.utils.CpfCnpjUtil;
 import com.kraemer.domain.utils.StringUtil;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class SupplierBO {
     
@@ -65,11 +65,11 @@ public class SupplierBO {
         validateDocument();
         
         if(StringUtil.isNullOrEmpty(this.getName())) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
         }
 
         if(StringUtil.isNullOrEmpty(this.getContact())) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "contato");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "contato");
         }
 
         if(Objects.isNull(this.isActive())) {
@@ -80,11 +80,11 @@ public class SupplierBO {
 
     private void validateDocument() {
         if(StringUtil.isNullOrEmpty(this.getDocument())) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "CNPJ");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "CNPJ");
         }
 
         if(!CpfCnpjUtil.isValidCNPJ(this.document.replace(".", "").replace("/", "").replace("-", ""))) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CNPJ");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CNPJ");
         }
     }
 

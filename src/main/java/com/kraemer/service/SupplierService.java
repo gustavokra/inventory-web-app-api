@@ -17,7 +17,7 @@ public class SupplierService extends AbstractService {
 
     @Transactional
     public SupplierDTO create(SupplierDTO dto, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getSupplierImpl(dbImpl);
+        var repository = dbFactory.getSupplierRepositoryImpl(dbImpl);
 
         var createSupplier = new CreateSupplier(repository);
 
@@ -25,7 +25,7 @@ public class SupplierService extends AbstractService {
     }
 
     public List<SupplierDTO> findAll(EnumDBImpl dbImpl) {
-        var repository = dbFactory.getSupplierImpl(dbImpl);
+        var repository = dbFactory.getSupplierRepositoryImpl(dbImpl);
 
         var findAllSuppliers = new FindAllSuppliers(repository);
 
@@ -34,7 +34,7 @@ public class SupplierService extends AbstractService {
 
     @Transactional
     public SupplierDTO updateSupplierInfo(SupplierDTO dto, Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getSupplierImpl(dbImpl);
+        var repository = dbFactory.getSupplierRepositoryImpl(dbImpl);
 
         var updateSupplierInfo = new UpdateSupplierInfo(repository);
 
@@ -43,7 +43,7 @@ public class SupplierService extends AbstractService {
 
     @Transactional
     public void delete(Long id, EnumDBImpl dbImpl) {
-        var repository = dbFactory.getSupplierImpl(dbImpl);
+        var repository = dbFactory.getSupplierRepositoryImpl(dbImpl);
 
         var deleteSupplier = new DeleteSupplier(repository);
 

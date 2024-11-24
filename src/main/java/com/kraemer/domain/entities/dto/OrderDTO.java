@@ -2,6 +2,7 @@ package com.kraemer.domain.entities.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.kraemer.domain.entities.enums.EnumOrderStatus;
 
@@ -9,13 +10,15 @@ public class OrderDTO {
 
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDateTime createdAt;
 
-    private ClientDTO client;
+    private ClientDTO clientDTO;
 
     private EnumOrderStatus status;
 
     private BigDecimal totalValue;
+
+    private List<OrderItemDTO> itemsDTO;
 
     public Long getId() {
         return id;
@@ -25,27 +28,27 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public ClientDTO getClient() {
-        return client;
+        return clientDTO;
     }
 
-    public void setClient(ClientDTO client) {
-        this.client = client;
+    public void setClient(ClientDTO clientDTO) {
+        this.clientDTO = clientDTO;
     }
 
-    public EnumOrderStatus getStatus() {
+    public EnumOrderStatus getEnumStatus() {
         return status;
     }
 
-    public void setStatus(EnumOrderStatus status) {
+    public void setEnumStatus(EnumOrderStatus status) {
         this.status = status;
     }
 
@@ -55,6 +58,14 @@ public class OrderDTO {
 
     public void setTotalValue(BigDecimal totalValue) {
         this.totalValue = totalValue;
+    }
+
+    public List<OrderItemDTO> getItemsDTO() {
+        return itemsDTO;
+    }
+
+    public void setItemsDTO(List<OrderItemDTO> itemsDTO) {
+        this.itemsDTO = itemsDTO;
     }
 
 }

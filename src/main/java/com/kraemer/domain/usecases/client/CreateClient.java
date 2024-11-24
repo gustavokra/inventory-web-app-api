@@ -6,7 +6,7 @@ import com.kraemer.domain.entities.dto.ClientDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.ClientMapper;
 import com.kraemer.domain.entities.repositories.IClientRepository;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class CreateClient {
@@ -32,7 +32,7 @@ public class CreateClient {
         var existingClientBO = repository.findFirstBy(List.of(documentField));
         
         if(existingClientBO != null) {
-            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Cliente com documento " + document);
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Cliente com documento " + document);
         }
     }
 }

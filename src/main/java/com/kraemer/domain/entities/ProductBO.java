@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.utils.NumericUtil;
 import com.kraemer.domain.utils.StringUtil;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class ProductBO {
 
@@ -79,19 +79,19 @@ public class ProductBO {
     private void validate() {
 
         if (NumericUtil.isNullOrZero(this.price)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
         }
 
         if (NumericUtil.isLessOrEqualsZero(this.quantity)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
         }
 
         if (Objects.isNull(this.supplier)) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "fornecedor");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "fornecedor");
         }
 
         if (Objects.isNull(this.supplier.getId())) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id do fornecedor");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id do fornecedor");
         }
     }
 
@@ -107,7 +107,7 @@ public class ProductBO {
 
         if (!NumericUtil.isNullOrZero(quantity)) {
             if (!NumericUtil.isGreaterThanZero(price)) {
-                throw new InvetoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
             }
         }
 

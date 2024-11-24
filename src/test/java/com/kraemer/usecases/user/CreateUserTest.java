@@ -24,7 +24,7 @@ import com.kraemer.domain.entities.dto.UserDTO;
 import com.kraemer.domain.entities.mappers.UserMapper;
 import com.kraemer.domain.entities.repositories.IUserRepository;
 import com.kraemer.domain.usecases.user.CreateUser;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateUserTest {
@@ -89,7 +89,7 @@ public class CreateUserTest {
         when(repository.findFirstBy(anyList())).thenReturn(userBO);
 
         Assertions.assertThrows(
-                InvetoryAppException.class,
+                InventoryAppException.class,
                 () -> createUser.execute(userDTO));
                 
     }

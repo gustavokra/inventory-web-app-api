@@ -27,15 +27,15 @@ public class SqliteProduct extends PanacheEntityBase {
     @Column(length = 150)
     private String description;
 
-    @Column(nullable = false, precision = 7, scale = 2)
+    @Column(nullable = false, scale = 2)
     private BigDecimal price;
 
-    @Column(nullable = false, precision = 10, scale = 0)
+    @Column(nullable = false, scale = 0)
     private Integer quantity;
 
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "supplier_id")
     private SqliteSupplier supplier;
 

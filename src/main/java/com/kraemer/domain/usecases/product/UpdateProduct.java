@@ -6,7 +6,7 @@ import com.kraemer.domain.entities.dto.ProductDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.ProductMapper;
 import com.kraemer.domain.entities.repositories.IProductRepository;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class UpdateProduct {
@@ -25,7 +25,7 @@ public class UpdateProduct {
         var existingProduct = repository.findFirstBy(List.of(idField));
 
         if (existingProduct == null) {
-            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "produto", "id", id);
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "produto", "id", id);
         }
 
         existingProduct.handleUpdate(
@@ -53,7 +53,7 @@ public class UpdateProduct {
     private void verifyId(Long id) {
 
         if (id == null) {
-            throw new InvetoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
         }
 
     }

@@ -9,6 +9,8 @@ public enum EnumErrorCode  implements IEnum {
       ENTIDADE_NAO_ENCONTRADA("003", "Não foi encontrado {0} com filtros {1} valor {2}", 400),
       CAMPO_INVALIDO("004", "Campo {0} inválido!", 404),
       ERRO_AO_EXCLUIR("005", "Erro ao excluir {0} com {1} valor {2}", 404),
+      ERRO_AO_CRIAR("006", "Erro ao criar {0}", 404),
+      ERRO_AO_EDITAR("007", "Erro ao editar {0}", 404),
       // External errors
       ERRO_COMUNICACAO("050", "A requisição enviada ao parceiro retornou com erro!", 502);
   

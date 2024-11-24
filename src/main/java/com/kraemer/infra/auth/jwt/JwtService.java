@@ -8,7 +8,7 @@ import io.smallrye.jwt.build.Jwt;
 import jakarta.inject.Singleton;
 
 @Singleton
-public class InventoryAppJwtService {
+public class JwtService {
     public String generateAdminJwt() {
         Set<String> roles = new HashSet<>(
                 Arrays.asList("ADMIN", "USER")

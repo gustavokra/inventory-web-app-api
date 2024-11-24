@@ -6,7 +6,7 @@ import com.kraemer.domain.entities.dto.UserDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.UserMapper;
 import com.kraemer.domain.entities.repositories.IUserRepository;
-import com.kraemer.domain.utils.exception.InvetoryAppException;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class CreateUser {
@@ -43,7 +43,7 @@ public class CreateUser {
         QueryFieldInfoVO nameField = new QueryFieldInfoVO("name", name);
         var existentUser = repository.findFirstBy(List.of(nameField));
         if(existentUser != null) {
-            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com nome " + name );
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com nome " + name );
         }
     }
 
@@ -51,7 +51,7 @@ public class CreateUser {
         QueryFieldInfoVO emailField = new QueryFieldInfoVO("email", email);
         var existentUser = repository.findFirstBy(List.of(emailField));
         if(existentUser != null) {
-            throw new InvetoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com email " + email);
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Usuário com email " + email);
         }
     }
 

@@ -16,6 +16,9 @@ public abstract class AbstractService {
     // @Inject
     // SqliteProductRepository sqliteProductRepository;
 
+    // @Inject
+    // SqliteOrderRepository sqliteOrderRepository;
+
     @Inject
     DbFactory dbFactory;
 
