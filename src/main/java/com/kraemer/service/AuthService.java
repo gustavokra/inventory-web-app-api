@@ -28,12 +28,18 @@ public class AuthService extends AbstractService {
     }
 
     private TokenDTO generateToken(UserBO userLoged) {
+        var tokenDTO = new TokenDTO();
 
         if (!userLoged.getRoles().contains(EnumRole.ADMIN)) {
-            return new TokenDTO(jwtService.generateUserJwt());
+            tokenDTO.setToken(jwtService.generateUserJwt());
+            tokenDTO.setAdmin(false);
+            return tokenDTO;
         }
 
-        return new TokenDTO(jwtService.generateAdminJwt());
+        tokenDTO.setToken(jwtService.generateAdminJwt());
+        tokenDTO.setAdmin(true);
+
+        return tokenDTO;
     }
 
 }

@@ -31,8 +31,8 @@ public class SqliteOrderRepository implements IOrderRepository {
         for (SqliteOrderItem item : entity.getItems()) {
             item.setOrder(entity);
 
-            if (!NumericUtil.isGreaterThanZero(item.getProduct().getQuantity() - item.getQuantity())) {
-                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Quantidade de produtos excede estoque,");
+            if (NumericUtil.isLessOrEquals(item.getProduct().getQuantity() - item.getQuantity(), -1)) {
+                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Quantidade de produtos excede estoque, ");
             }
 
             item.getProduct().setQuantity(item.getProduct().getQuantity() - item.getQuantity());

@@ -82,7 +82,7 @@ public class ProductBO {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
         }
 
-        if (NumericUtil.isLessOrEqualsZero(this.quantity)) {
+        if (NumericUtil.isLessOrEquals(this.quantity, -1)) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
         }
 

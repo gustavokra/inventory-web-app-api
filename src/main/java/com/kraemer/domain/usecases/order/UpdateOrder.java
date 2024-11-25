@@ -30,14 +30,14 @@ public class UpdateOrder {
         }
 
         existingOrder.handleUpdate(
-                ClientMapper.toBO(dto.getClient()),
+                dto.getClient() != null ? ClientMapper.toBO(dto.getClient()) : null,
                 dto.getEnumStatus(),
-                dto.getItems().stream()
-                        .map(OrderItemMapper::toBO).toList());
+                dto.getItems() != null ? dto.getItems().stream()
+                        .map(OrderItemMapper::toBO).toList() : null);
 
         var orderUpdated = repository.merge(existingOrder);
 
-        if(orderUpdated == null) {
+        if (orderUpdated == null) {
             throw new InventoryAppException(EnumErrorCode.ERRO_AO_EDITAR, "pedido");
         }
 
