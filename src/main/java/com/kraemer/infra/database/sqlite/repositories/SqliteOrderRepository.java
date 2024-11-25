@@ -10,6 +10,7 @@ import com.kraemer.domain.utils.ListUtil;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 import com.kraemer.infra.database.sqlite.mappers.SqliteOrderMapper;
 import com.kraemer.infra.database.sqlite.model.SqliteOrder;
+import com.kraemer.infra.database.sqlite.model.SqliteOrderItem;
 
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,15 +19,22 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class SqliteOrderRepository implements IOrderRepository {
 
     public OrderBO create(OrderBO bo) {
-        var panacheOrder = SqliteOrderMapper.toEntity(bo);
-
-        panacheOrder.persist();
-
-        return SqliteOrderMapper.toDomain(panacheOrder);
+        var entity = SqliteOrderMapper.toEntity(bo);
+    
+        for (SqliteOrderItem item : entity.getItems()) {
+            item.setOrder(entity);
+        }
+    
+        entity.persist();
+        return SqliteOrderMapper.toDomain(entity);
     }
 
     public OrderBO merge(OrderBO bo) {
         var entity = SqliteOrderMapper.toEntity(bo);
+
+        for (SqliteOrderItem item : entity.getItems()) {
+            item.setOrder(entity);
+        }
 
         SqliteOrder.getEntityManager().merge(entity);
 

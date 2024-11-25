@@ -48,9 +48,6 @@ public class OrderItemBO {
     }
 
     private void validate() {
-        if(this.orderBO == null) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "pedido");
-        }
 
         if(this.productBO == null) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "produto");

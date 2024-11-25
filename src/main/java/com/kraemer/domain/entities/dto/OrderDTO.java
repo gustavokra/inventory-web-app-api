@@ -12,13 +12,13 @@ public class OrderDTO {
 
     private LocalDateTime createdAt;
 
-    private ClientDTO clientDTO;
+    private ClientDTO client;
 
-    private EnumOrderStatus status;
+    private EnumOrderStatus enumStatus;
 
     private BigDecimal totalValue;
 
-    private List<OrderItemDTO> itemsDTO;
+    private List<OrderItemDTO> items;
 
     public Long getId() {
         return id;
@@ -37,19 +37,19 @@ public class OrderDTO {
     }
 
     public ClientDTO getClient() {
-        return clientDTO;
+        return client;
     }
 
-    public void setClient(ClientDTO clientDTO) {
-        this.clientDTO = clientDTO;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     public EnumOrderStatus getEnumStatus() {
-        return status;
+        return enumStatus;
     }
 
-    public void setEnumStatus(EnumOrderStatus status) {
-        this.status = status;
+    public void setEnumStatus(EnumOrderStatus enumStatus) {
+        this.enumStatus = enumStatus;
     }
 
     public BigDecimal getTotalValue() {
@@ -60,12 +60,12 @@ public class OrderDTO {
         this.totalValue = totalValue;
     }
 
-    public List<OrderItemDTO> getItemsDTO() {
-        return itemsDTO;
+    public List<OrderItemDTO> getItems() {
+        return items;
     }
 
-    public void setItemsDTO(List<OrderItemDTO> itemsDTO) {
-        this.itemsDTO = itemsDTO;
+    public void setItems(List<OrderItemDTO> items) {
+        this.items = items;
     }
 
 }

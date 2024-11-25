@@ -17,7 +17,7 @@ public class ProductMapper {
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),
-                SupplierMapper.idToBO(dto.getSupplier()),
+                SupplierMapper.toBO(dto.getSupplier()),
                 dto.getActive());
     }
 

@@ -2,6 +2,8 @@ package com.kraemer.infra.database.sqlite.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kraemer.domain.entities.enums.EnumOrderStatus;
@@ -40,8 +42,8 @@ public class SqliteOrder extends PanacheEntityBase {
     @Column(precision = 2, nullable = false)
     private BigDecimal totalValue;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<SqliteOrderItem> items;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SqliteOrderItem> items = new ArrayList<>();
 
     public Long getId() {
         return id;

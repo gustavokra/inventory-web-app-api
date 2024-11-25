@@ -89,40 +89,52 @@ public class OrderBO {
     }
 
     private void verifyInactiveEntities() {
+        StringBuilder errorMessage = new StringBuilder();
+    
         if (!isClientActive()) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Cliente inativo");
+            errorMessage.append("Cliente inativo: ")
+                        .append(this.clientBO.getName())
+                        .append("\n");
         }
-
+    
         String inactiveProductsMessage = getInactiveProductsMessage();
+        if (!inactiveProductsMessage.isEmpty()) {
+            errorMessage.append("Produtos inativos:\n")
+                        .append(inactiveProductsMessage);
+        }
+    
         String inactiveSuppliersMessage = getInactiveSuppliersMessage();
-
-        if (!inactiveProductsMessage.isEmpty() || !inactiveSuppliersMessage.isEmpty()) {
+        if (!inactiveSuppliersMessage.isEmpty()) {
+            errorMessage.append("Fornecedores inativos:\n")
+                        .append(inactiveSuppliersMessage);
+        }
+    
+        if (errorMessage.length() > 0) {
             throw new InventoryAppException(
-                    EnumErrorCode.CAMPO_INVALIDO,
-                    inactiveProductsMessage + inactiveSuppliersMessage);
+                    EnumErrorCode.ERRO_AO_CRIAR,
+                    "Pedido. \n" + errorMessage.toString().trim()
+            );
         }
     }
-
+    
     private boolean isClientActive() {
         return this.clientBO.isActive();
     }
-
+    
     private String getInactiveProductsMessage() {
         return itemsBO.stream()
                 .filter(item -> !item.getProduct().getActive())
-                .map(item -> "- " + item.getProduct().getName() + "\n")
-                .collect(Collectors.joining("", "Produtos inativos:\n", ""));
+                .map(item -> "- Produto: " + item.getProduct().getName() + "\n")
+                .collect(Collectors.joining());
     }
-
+    
     private String getInactiveSuppliersMessage() {
         return itemsBO.stream()
                 .filter(item -> !item.getProduct().getSupplier().isActive())
-                .map(item -> "- " + item.getProduct().getName() +
-                        " (fornecedor: " + item.getProduct().getSupplier().getName() + ")\n")
-                .collect(Collectors.joining("", "Produtos com fornecedores inativos:\n", ""));
+                .map(item -> "- Produto: " + item.getProduct().getName() + 
+                             " (Fornecedor: " + item.getProduct().getSupplier().getName() + ")\n")
+                .collect(Collectors.joining());
     }
-
-
 
     public void handleUpdate(ClientBO clientBO,
             EnumOrderStatus enumStatus,

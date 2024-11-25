@@ -34,6 +34,7 @@ public class CreateOrder {
 
     private OrderBO mapAndPrepareOrder(OrderDTO dto) {
         var orderToCreate = OrderMapper.toBO(dto);
+        
         orderToCreate.handleCreate();
         return orderToCreate;
     }

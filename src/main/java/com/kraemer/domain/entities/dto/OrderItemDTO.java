@@ -7,9 +7,9 @@ public class OrderItemDTO {
 
     private Long id;
 
-    private OrderDTO orderDTO;
+    private OrderDTO order;
 
-    private ProductDTO productDTO;
+    private ProductDTO product;
 
     private Integer quantity;
 
@@ -24,19 +24,19 @@ public class OrderItemDTO {
     }
 
     public OrderDTO getOrder() {
-        return orderDTO;
+        return order;
     }
 
-    public void setOrder(OrderDTO orderDTO) {
-        this.orderDTO = orderDTO;
+    public void setOrder(OrderDTO order) {
+        this.order = order;
     }
 
     public ProductDTO getProduct() {
-        return productDTO;
+        return product;
     }
 
-    public void setProduct(ProductDTO productDTO) {
-        this.productDTO = productDTO;
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {

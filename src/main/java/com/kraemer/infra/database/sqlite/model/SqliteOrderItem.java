@@ -2,6 +2,7 @@ package com.kraemer.infra.database.sqlite.model;
 
 import java.math.BigDecimal;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "order_item")
-public class SqliteOrderItem {
+public class SqliteOrderItem extends PanacheEntityBase {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

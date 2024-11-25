@@ -3,7 +3,10 @@ package com.kraemer.infra.database.sqlite.mappers;
 import java.util.stream.Collectors;
 
 import com.kraemer.domain.entities.OrderBO;
+import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
+import com.kraemer.domain.utils.exception.InventoryAppException;
+import com.kraemer.infra.database.sqlite.model.SqliteClient;
 import com.kraemer.infra.database.sqlite.model.SqliteOrder;
 
 public class SqliteOrderMapper {
@@ -19,7 +22,12 @@ public class SqliteOrderMapper {
         entity.setTotalValue(domain.getTotalValue());
 
         if (domain.getClient() != null) {
-            entity.setClient(SqliteClientMapper.toEntity(domain.getClient()));
+            SqliteClient managedClient = SqliteClient.findById(domain.getClient().getId());
+            if (managedClient == null) {
+                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "cliente id " + domain.getClient().getId());
+            }
+
+            entity.setClient(managedClient);
         }
 
         if (domain.getItemsBO() != null && !domain.getItemsBO().isEmpty()) {
@@ -43,7 +51,7 @@ public class SqliteOrderMapper {
                 entity.getStatus(),
                 entity.getTotalValue(),
                 entity.getItems() != null ? entity.getItems().stream()
-                        .map(SqliteOrderItemMapper::toDomain)
-                        .collect(Collectors.toList()) : null);
+                .map(item -> SqliteOrderItemMapper.toDomain(item, false))
+                .collect(Collectors.toList()) : null);
     }
 }

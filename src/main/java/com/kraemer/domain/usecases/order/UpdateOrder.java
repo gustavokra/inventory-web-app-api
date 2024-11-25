@@ -32,7 +32,7 @@ public class UpdateOrder {
         existingOrder.handleUpdate(
                 ClientMapper.toBO(dto.getClient()),
                 dto.getEnumStatus(),
-                dto.getItemsDTO().stream()
+                dto.getItems().stream()
                         .map(OrderItemMapper::toBO).toList());
 
         var orderUpdated = repository.merge(existingOrder);
