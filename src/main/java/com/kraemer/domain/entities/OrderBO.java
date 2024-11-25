@@ -8,6 +8,7 @@ import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.enums.EnumOrderStatus;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
 import com.kraemer.domain.utils.ListUtil;
+import com.kraemer.domain.utils.NumericUtil;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class OrderBO {
@@ -84,8 +85,8 @@ public class OrderBO {
 
     public void sumTotalValue() {
         this.totalValue = itemsBO.stream()
-                .map(OrderItemBO::getUnitPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        .map(item ->  item.getUnitPrice().multiply(NumericUtil.toBigDecimal(item.getQuantity())))
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private void verifyInactiveEntities() {
@@ -101,12 +102,6 @@ public class OrderBO {
         if (!inactiveProductsMessage.isEmpty()) {
             errorMessage.append("Produtos inativos:\n")
                         .append(inactiveProductsMessage);
-        }
-    
-        String inactiveSuppliersMessage = getInactiveSuppliersMessage();
-        if (!inactiveSuppliersMessage.isEmpty()) {
-            errorMessage.append("Fornecedores inativos:\n")
-                        .append(inactiveSuppliersMessage);
         }
     
         if (errorMessage.length() > 0) {
@@ -128,14 +123,6 @@ public class OrderBO {
                 .collect(Collectors.joining());
     }
     
-    private String getInactiveSuppliersMessage() {
-        return itemsBO.stream()
-                .filter(item -> !item.getProduct().getSupplier().isActive())
-                .map(item -> "- Produto: " + item.getProduct().getName() + 
-                             " (Fornecedor: " + item.getProduct().getSupplier().getName() + ")\n")
-                .collect(Collectors.joining());
-    }
-
     public void handleUpdate(ClientBO clientBO,
             EnumOrderStatus enumStatus,
             List<OrderItemBO> itemsBO) {

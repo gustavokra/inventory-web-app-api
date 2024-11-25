@@ -1,16 +1,23 @@
 package com.kraemer.infra.database.sqlite.repositories;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.kraemer.domain.entities.OrderBO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
+import com.kraemer.domain.entities.enums.EnumErrorCode;
+import com.kraemer.domain.entities.enums.EnumOrderStatus;
+import com.kraemer.domain.entities.enums.EnumTransactionType;
 import com.kraemer.domain.entities.repositories.IOrderRepository;
 import com.kraemer.domain.utils.ListUtil;
+import com.kraemer.domain.utils.NumericUtil;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 import com.kraemer.infra.database.sqlite.mappers.SqliteOrderMapper;
 import com.kraemer.infra.database.sqlite.model.SqliteOrder;
 import com.kraemer.infra.database.sqlite.model.SqliteOrderItem;
+import com.kraemer.infra.database.sqlite.model.SqliteTransaction;
 
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -20,12 +27,19 @@ public class SqliteOrderRepository implements IOrderRepository {
 
     public OrderBO create(OrderBO bo) {
         var entity = SqliteOrderMapper.toEntity(bo);
-    
+
         for (SqliteOrderItem item : entity.getItems()) {
             item.setOrder(entity);
+
+            if (!NumericUtil.isGreaterThanZero(item.getProduct().getQuantity() - item.getQuantity())) {
+                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Quantidade de produtos excede estoque,");
+            }
+
+            item.getProduct().setQuantity(item.getProduct().getQuantity() - item.getQuantity());
         }
-    
+
         entity.persist();
+
         return SqliteOrderMapper.toDomain(entity);
     }
 
@@ -34,6 +48,19 @@ public class SqliteOrderRepository implements IOrderRepository {
 
         for (SqliteOrderItem item : entity.getItems()) {
             item.setOrder(entity);
+        }
+
+        if (entity.getStatus().equals(EnumOrderStatus.COMPLETED)) {
+            entity.getItems().stream().forEach(item -> {
+                var transaction = new SqliteTransaction();
+                transaction.setOrder(entity);
+                transaction.setProduct(item.getProduct());
+                transaction.setTransactionType(EnumTransactionType.INPUT);
+                transaction
+                        .setValue(item.getProduct().getPrice().multiply(NumericUtil.toBigDecimal(item.getQuantity())));
+                transaction.setCreatedAt(LocalDateTime.now());
+                transaction.persist();
+            });
         }
 
         SqliteOrder.getEntityManager().merge(entity);

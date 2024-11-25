@@ -3,6 +3,7 @@ package com.kraemer.infra.database.sqlite.model;
 import java.math.BigDecimal;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +26,7 @@ public class SqliteOrderItem extends PanacheEntityBase {
     @JoinColumn(name = "order_id", nullable = false)
     private SqliteOrder order;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "product_id", nullable = false)
     private SqliteProduct product;
 
