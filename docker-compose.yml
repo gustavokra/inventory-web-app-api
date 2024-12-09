@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  inventory-web-app-api:
+    container_name: inventory-web-app-api
+    image: inventory-web-app-api:1.0.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      MP_JWT_VERIFY_PUBLICKEY_LOCATION: /jwt/publicKey.pem
+    volumes:
+      - type: bind
+        source: ./jwt
+        target: /jwt

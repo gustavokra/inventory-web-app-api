@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.kraemer.domain.entities.ClientBO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
+import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IClientRepository;
 import com.kraemer.domain.utils.ListUtil;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 import com.kraemer.infra.database.sqlite.mappers.SqliteClientMapper;
 import com.kraemer.infra.database.sqlite.model.SqliteClient;
+import com.kraemer.infra.database.sqlite.model.SqliteTransaction;
 
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -85,6 +88,10 @@ public class SqliteClientRepository implements IClientRepository {
 
     @Override
     public boolean delete(Long id) {
+        // List<SqliteTransaction> transactions = SqliteTransaction.find("WHERE CLIENT_ID = " + id).list();
+        // if(ListUtil.isNullOrEmpty(transactions)) {
+        //     throw new InventoryAppException(EnumErrorCode.ERRO_AO_EXCLUIR, "cliente", "id", id + " existem transações com esse cliente");
+        // }
         return SqliteClient.deleteById(id);
     }
 
