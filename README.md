@@ -29,3 +29,7 @@ API do projeto de inventário Web, que possui:
 - quarkus-hibernate-orm-panache
 - quarkus-junit5
 - quarkus-junit5-mockito
+
+
+front end: 
+[Repositório React Js](https://github.com/gustavokra/inventarioweb)
