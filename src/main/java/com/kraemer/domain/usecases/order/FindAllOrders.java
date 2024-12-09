@@ -1,7 +1,6 @@
 package com.kraemer.domain.usecases.order;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.kraemer.domain.entities.dto.OrderDTO;
 import com.kraemer.domain.entities.mappers.OrderMapper;

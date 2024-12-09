@@ -1,7 +1,10 @@
 package com.kraemer;
 
+import java.util.Set;
+
 import com.kraemer.domain.entities.dto.UserCredentialsDTO;
 import com.kraemer.domain.entities.dto.UserDTO;
+import com.kraemer.domain.entities.enums.EnumRole;
 
 public class TestUtil {
 
@@ -11,6 +14,7 @@ public class TestUtil {
         userDTO.setEmail("jhondoe@gmail.com");
         userDTO.setPassword("123");
         userDTO.setConfirmPassword("123");
+        userDTO.setRoles(Set.of(EnumRole.ADMIN));
         return userDTO;
     }
 
