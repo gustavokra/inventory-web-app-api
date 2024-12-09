@@ -1,12 +1,12 @@
 # inventory-web-app-api
 
 API do projeto de inventário Web, que possui: 
- - Cadastro e login de usuário, 
+ - Cadastro e login de usuário
  - Cadastro de clientes
  - Cadastro de fornecedores 
  - Cadastro de produtos
  - Gerenciamento de vendas
- - Transações financeiras.
+ - Transações financeiras
  - Documentação com Swagger para desenvolvedores, acessada em http://localhost:8080/q/swagger-ui/
 
 ## Tecnologias usadas: 
@@ -19,7 +19,10 @@ API do projeto de inventário Web, que possui:
 - Testes: JUnit e Mockito
 
 ## Subir o projeto:
-Caso queira subir em modo desenvolvimento, suba a api com o comando ./mvnw quarkus:dev
+Caso queira subir em modo desenvolvimento, suba a api com o comando 
+```
+./mvnw quarkus:dev
+```
 
 Caso queira subir com o docker:
 
