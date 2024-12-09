@@ -1,4 +1,4 @@
-# InventoryAppApi
+# inventory-web-app-api
 
 API do projeto de inventário Web, que possui: 
  - Cadastro e login de usuário, 
@@ -28,8 +28,7 @@ API do projeto de inventário Web, que possui:
 - quarkus-jdbc-sqlite
 - quarkus-hibernate-orm-panache
 - quarkus-junit5
-- quarkus-junit5-mockito
-
+- quarkus-junit5-mockitos
 
 front end: 
 [Repositório React Js](https://github.com/gustavokra/inventarioweb)
