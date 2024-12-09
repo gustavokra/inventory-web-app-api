@@ -24,7 +24,7 @@ Caso queira subir em modo desenvolvimento, suba a api com o comando
 ./mvnw quarkus:dev
 ```
 
-Caso queira subir com o docker:
+Caso queira subir com o Docker:
 
 Pré requisitos: 
 - openssl instalado em seu computador.
