@@ -23,7 +23,7 @@ Pré requisitos:
 - openssl instalado em seu computador.
 
 
-Caso queira subir em modo desenvolvimento, primeiro gere suas keys, via openssl, executando o script:
+Caso queira subir em modo desenvolvimento, primeiro gere suas keys via openssl, executando o script:
 ```
 ./generate_jwtKeys.sh
 ```
