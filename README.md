@@ -19,15 +19,20 @@ API do projeto de inventário Web, que possui:
 - Testes: JUnit e Mockito
 
 ## Subir o projeto:
-Caso queira subir em modo desenvolvimento, suba a api com o comando 
+Pré requisitos: 
+- openssl instalado em seu computador.
+
+
+Caso queira subir em modo desenvolvimento, primeiro gere suas keys, via openssl, executando o script:
+```
+./generate_jwtKeys.sh
+```
+ E então suba a api com o comando:
 ```
 ./mvnw quarkus:dev
 ```
 
 Caso queira subir com o Docker:
-
-Pré requisitos: 
-- openssl instalado em seu computador.
 
 Rode o script que cria as suas keys via openssl (que serão usadas para gerar o token JWT) e que sobe o container docker:
 ```
