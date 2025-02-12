@@ -16,6 +16,10 @@ public class ProductBO {
 
     private String description;
 
+    private MarcaBO marcaBO;
+
+    private GrupoBO grupoBO;
+
     private BigDecimal price;
 
     private Integer quantity;
@@ -26,11 +30,13 @@ public class ProductBO {
 
     private Boolean active;
 
-    public ProductBO(Long id, String name, String description, BigDecimal price, Integer quantity, String image,
+    public ProductBO(Long id, String name, String description, MarcaBO marcaBO, GrupoBO grupoBO, BigDecimal price, Integer quantity, String image,
             SupplierBO supplier, Boolean active) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.marcaBO = marcaBO;
+        this.grupoBO = grupoBO;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
@@ -76,23 +82,20 @@ public class ProductBO {
         this.active = active;
     }
 
+    public MarcaBO getMarcaBO() {
+        return marcaBO;
+    }
+
+    public GrupoBO getGrupoBO() {
+        return grupoBO;
+    }
+
     private void validate() {
 
-        if (NumericUtil.isNullOrZero(this.price)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+        if(StringUtil.isNullOrEmpty(name)) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
         }
 
-        if (NumericUtil.isLessOrEquals(this.quantity, -1)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "quantidade");
-        }
-
-        if (Objects.isNull(this.supplier)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "fornecedor");
-        }
-
-        if (Objects.isNull(this.supplier.getId())) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id do fornecedor");
-        }
     }
 
     public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image,
@@ -105,11 +108,11 @@ public class ProductBO {
             this.description = description;
         }
 
-        if (!NumericUtil.isNullOrZero(quantity)) {
-            if (!NumericUtil.isGreaterThanZero(price)) {
-                throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
-            }
-        }
+        // if (!NumericUtil.isNullOrZero(quantity)) {
+        //     if (!NumericUtil.isGreaterThanZero(price)) {
+        //         throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
+        //     }
+        // }
 
         if (!NumericUtil.isNullOrZero(quantity)) {
             if (!NumericUtil.isLessOrEqualsZero(price)) {

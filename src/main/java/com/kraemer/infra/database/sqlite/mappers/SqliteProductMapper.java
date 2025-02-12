@@ -1,6 +1,7 @@
 package com.kraemer.infra.database.sqlite.mappers;
 
 import com.kraemer.domain.entities.ProductBO;
+import com.kraemer.infra.database.sqlite.model.SqliteGrupo;
 import com.kraemer.infra.database.sqlite.model.SqliteProduct;
 
 public class SqliteProductMapper {
@@ -13,6 +14,8 @@ public class SqliteProductMapper {
         entity.setId(domain.getId());
         entity.setName(domain.getName());
         entity.setDescription(domain.getDescription());
+        entity.setMarca(domain.getMarcaBO() != null ? SqliteMarcaMapper.toEntity(domain.getMarcaBO()) : null);
+        entity.setGrupo(domain.getGrupoBO() != null ? SqliteGrupoMapper.toEntity(domain.getGrupoBO()) : null);
         entity.setPrice(domain.getPrice());
         entity.setQuantity(domain.getQuantity());
         entity.setImage(domain.getImage());
@@ -35,6 +38,8 @@ public class SqliteProductMapper {
             entity.getId(),
             entity.getName(),
             entity.getDescription(),
+            entity.getMarca() != null ? SqliteMarcaMapper.toDomain(entity.getMarca()) : null,
+            entity.getGrupo() != null ? SqliteGrupoMapper.toDomain(entity.getGrupo()) : null,
             entity.getPrice(),
             entity.getQuantity(),
             entity.getImage(),

@@ -7,13 +7,12 @@ import java.util.Map;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IClientRepository;
+import com.kraemer.domain.entities.repositories.IMarcaRepository;
 import com.kraemer.domain.entities.repositories.IOrderRepository;
 import com.kraemer.domain.entities.repositories.IProductRepository;
 import com.kraemer.domain.entities.repositories.ISupplierRepository;
 import com.kraemer.domain.entities.repositories.IUserRepository;
 import com.kraemer.domain.utils.exception.InventoryAppException;
-import com.kraemer.infra.database.sqlite.repositories.SqliteOrderRepository;
-import com.kraemer.infra.database.sqlite.repositories.SqliteProductRepository;
 
 import io.quarkus.arc.All;
 import jakarta.annotation.PostConstruct;
@@ -32,10 +31,13 @@ public class DbFactory {
     private List<ISupplierRepository> supplierRepositoryImplementations;
 
     @All
-    private List<SqliteProductRepository> productRepositoryImplementations;
+    private List<IProductRepository> productRepositoryImplementations;
 
     @All
-    private List<SqliteOrderRepository> orderRepositoryImplementations;
+    private List<IOrderRepository> orderRepositoryImplementations;
+
+    @All
+    private List<IMarcaRepository> marcaRepositoryImplementations;
 
     private static final Map<EnumDBImpl, IUserRepository> userRepositoryServiceCache = new HashMap<>();
 
@@ -46,6 +48,8 @@ public class DbFactory {
     private static final Map<EnumDBImpl, IProductRepository> productRepositoryServiceCache = new HashMap<>();
     
     private static final Map<EnumDBImpl, IOrderRepository> orderRepositoryServiceCache = new HashMap<>();
+
+    private static final Map<EnumDBImpl, IMarcaRepository> marcaRepositoryServiceCache = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -69,6 +73,10 @@ public class DbFactory {
         
         for (IOrderRepository impl : orderRepositoryImplementations) {
             orderRepositoryServiceCache.put(impl.getType(), impl);
+        }
+
+        for(IMarcaRepository impl : marcaRepositoryImplementations) {
+            marcaRepositoryServiceCache.put(impl.getType(), impl);
         }
     }
 
@@ -114,6 +122,16 @@ public class DbFactory {
 
     public IOrderRepository getOrderRepositoryImpl(EnumDBImpl impl) {
         IOrderRepository repository = orderRepositoryServiceCache.get(impl);
+
+        if (repository == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
+        }
+
+        return repository;
+    }
+
+    public IMarcaRepository getMarcaRepositoryImpl(EnumDBImpl impl) {
+        IMarcaRepository repository = marcaRepositoryServiceCache.get(impl);
 
         if (repository == null) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");

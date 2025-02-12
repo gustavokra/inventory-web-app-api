@@ -27,15 +27,23 @@ public class SqliteProduct extends PanacheEntityBase {
     @Column(length = 150)
     private String description;
 
-    @Column(nullable = false, scale = 2)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "marca_id")
+    private SqliteMarca marca;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "grupo_id")
+    private SqliteGrupo grupo;
+
+    @Column(scale = 2)
     private BigDecimal price;
 
-    @Column(nullable = false, scale = 0)
+    @Column(scale = 0)
     private Integer quantity;
 
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "supplier_id")
     private SqliteSupplier supplier;
 
@@ -103,6 +111,22 @@ public class SqliteProduct extends PanacheEntityBase {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public SqliteMarca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(SqliteMarca marca) {
+        this.marca = marca;
+    }
+
+    public SqliteGrupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(SqliteGrupo grupo) {
+        this.grupo = grupo;
     }
 
 }

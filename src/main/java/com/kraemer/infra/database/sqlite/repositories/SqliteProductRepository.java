@@ -21,9 +21,11 @@ public class SqliteProductRepository implements IProductRepository {
     public ProductBO create(ProductBO bo) {
         var panacheProduct = SqliteProductMapper.toEntity(bo);
 
-        SqliteSupplier productSupplier = SqliteSupplier.findById(bo.getSupplier().getId());
+        if (bo.getSupplier() != null) {
+            SqliteSupplier productSupplier = SqliteSupplier.findById(bo.getSupplier().getId());
 
-        panacheProduct.setSupplier(productSupplier);
+            panacheProduct.setSupplier(productSupplier);
+        }
 
         panacheProduct.persist();
 
@@ -46,8 +48,8 @@ public class SqliteProductRepository implements IProductRepository {
     @Override
     public List<ProductBO> findAll() {
         return ListUtil.stream(SqliteProduct.listAll(Sort.ascending("name", "quantity")))
-        .map(value -> SqliteProductMapper.toDomain((SqliteProduct) value))
-        .toList();
+                .map(value -> SqliteProductMapper.toDomain((SqliteProduct) value))
+                .toList();
     }
 
     @Override

@@ -14,10 +14,12 @@ public class ProductMapper {
                 dto.getId(),
                 dto.getName(),
                 dto.getDescription(),
+                dto.getMarcaDTO() != null ? MarcaMapper.toBO(dto.getMarcaDTO()) : null,
+                dto.getGrupoDTO() != null ? GrupoMapper.toBO(dto.getGrupoDTO()) : null,
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),
-                SupplierMapper.toBO(dto.getSupplier()),
+                dto.getSupplier() != null ? SupplierMapper.toBO(dto.getSupplier()) : null,
                 dto.getActive());
     }
 
@@ -30,10 +32,12 @@ public class ProductMapper {
         dto.setId(bo.getId());
         dto.setName(bo.getName());
         dto.setDescription(bo.getDescription());
+        dto.setMarcaDTO(bo.getMarcaBO() != null ? MarcaMapper.toDTO(bo.getMarcaBO()) : null);
+        dto.setGrupoDTO(bo.getGrupoBO() != null ? GrupoMapper.toDTO(bo.getGrupoBO()) : null);
         dto.setPrice(bo.getPrice());
         dto.setQuantity(bo.getQuantity());
         dto.setImage(bo.getImage());
-        dto.setSupplier(SupplierMapper.toDTO(bo.getSupplier()));
+        dto.setSupplier(bo.getSupplier() != null ? SupplierMapper.toDTO(bo.getSupplier()) : null);
         dto.setActive(bo.getActive());
 
         return dto;

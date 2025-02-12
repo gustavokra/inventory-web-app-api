@@ -10,6 +10,10 @@ public class ProductDTO {
 
     private String description;
 
+    private MarcaDTO marcaDTO;
+
+    private GrupoDTO grupoDTO;
+
     private BigDecimal price;
 
     private Integer quantity;
@@ -82,6 +86,22 @@ public class ProductDTO {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public MarcaDTO getMarcaDTO() {
+        return marcaDTO;
+    }
+
+    public void setMarcaDTO(MarcaDTO marcaDTO) {
+        this.marcaDTO = marcaDTO;
+    }
+
+    public GrupoDTO getGrupoDTO() {
+        return grupoDTO;
+    }
+
+    public void setGrupoDTO(GrupoDTO grupoDTO) {
+        this.grupoDTO = grupoDTO;
     }
 
 }

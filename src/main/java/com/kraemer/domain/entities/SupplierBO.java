@@ -62,8 +62,6 @@ public class SupplierBO {
 
     private void validate() {
 
-        validateDocument();
-        
         if(StringUtil.isNullOrEmpty(this.getName())) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
         }
