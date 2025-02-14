@@ -66,9 +66,11 @@ public class SupplierBO {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
         }
 
-        if(StringUtil.isNullOrEmpty(this.getContact())) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "contato");
-        }
+        validateDocument();
+
+        // if(StringUtil.isNullOrEmpty(this.getContact())) {
+        //     throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "contato");
+        // }
 
         if(Objects.isNull(this.isActive())) {
             this.active = true;
@@ -77,11 +79,8 @@ public class SupplierBO {
     }
 
     private void validateDocument() {
-        if(StringUtil.isNullOrEmpty(this.getDocument())) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "CNPJ");
-        }
-
-        if(!CpfCnpjUtil.isValidCNPJ(this.document.replace(".", "").replace("/", "").replace("-", ""))) {
+        if(StringUtil.isNotNullOrEmpty(this.getDocument()) && 
+            !CpfCnpjUtil.isValidCNPJ(this.document.replace(".", "").replace("/", "").replace("-", ""))) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CNPJ");
         }
     }

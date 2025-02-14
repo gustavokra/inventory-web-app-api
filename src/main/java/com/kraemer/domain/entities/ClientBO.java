@@ -8,7 +8,7 @@ import com.kraemer.domain.utils.StringUtil;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class ClientBO {
-    
+
     private Long id;
 
     private String name;
@@ -59,49 +59,42 @@ public class ClientBO {
     private void validate() {
 
         validateDocument();
-        
-        if(StringUtil.isNullOrEmpty(this.getName())) {
+
+        if (StringUtil.isNullOrEmpty(this.getName())) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
         }
 
-        if(StringUtil.isNullOrEmpty(this.getContact())) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "contato");
-        }
-
-        if(Objects.isNull(this.isActive())) {
+        if (Objects.isNull(this.isActive())) {
             this.active = true;
         }
-    
+
     }
 
     private void validateDocument() {
-        if(StringUtil.isNullOrEmpty(this.getDocument())) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "CPF/CNPJ");
-        }
-
-        if(!CpfCnpjUtil.isValidCpfOrCnpj(this.document)) {
+        if (StringUtil.isNotNullOrEmpty(this.getDocument()) && !CpfCnpjUtil.isValidCpfOrCnpj(this.document)) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CPF/CNPJ");
         }
+
     }
 
     public void handleUpdateInfo(String name, String document, String contact, String address, Boolean active) {
-        if(StringUtil.isNotNullOrEmpty(name)) {
+        if (StringUtil.isNotNullOrEmpty(name)) {
             this.name = name;
         }
 
-        if(StringUtil.isNotNullOrEmpty(document)) {
+        if (StringUtil.isNotNullOrEmpty(document)) {
             this.document = document;
         }
 
-        if(StringUtil.isNotNullOrEmpty(contact)) {
+        if (StringUtil.isNotNullOrEmpty(contact)) {
             this.contact = contact;
         }
 
-        if(StringUtil.isNotNullOrEmpty(address)) {
+        if (StringUtil.isNotNullOrEmpty(address)) {
             this.address = address;
         }
 
-        if(!Objects.isNull(active)) {
+        if (!Objects.isNull(active)) {
             this.active = active;
         }
     }

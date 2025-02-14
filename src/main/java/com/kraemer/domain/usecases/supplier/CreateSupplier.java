@@ -6,11 +6,12 @@ import com.kraemer.domain.entities.dto.SupplierDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.SupplierMapper;
 import com.kraemer.domain.entities.repositories.ISupplierRepository;
+import com.kraemer.domain.utils.StringUtil;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class CreateSupplier {
-    
+
     private ISupplierRepository repository;
 
     public CreateSupplier(ISupplierRepository repository) {
@@ -28,11 +29,14 @@ public class CreateSupplier {
     }
 
     private void verifyExisting(String document) {
-        QueryFieldInfoVO documentField = new QueryFieldInfoVO("document", document);
-        var existingSupplierBO = repository.findFirstBy(List.of(documentField));
-        
-        if(existingSupplierBO != null) {
-            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Fornecedor com documento " + document);
+        if (StringUtil.isNotNullOrEmpty(document)) {
+            QueryFieldInfoVO documentField = new QueryFieldInfoVO("document", document);
+            var existingSupplierBO = repository.findFirstBy(List.of(documentField));
+
+            if (existingSupplierBO != null) {
+                throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA,
+                        "Fornecedor com documento " + document);
+            }
         }
     }
 }

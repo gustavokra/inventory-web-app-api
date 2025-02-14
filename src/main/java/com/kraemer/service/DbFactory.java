@@ -7,6 +7,7 @@ import java.util.Map;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IClientRepository;
+import com.kraemer.domain.entities.repositories.IGrupoRepository;
 import com.kraemer.domain.entities.repositories.IMarcaRepository;
 import com.kraemer.domain.entities.repositories.IOrderRepository;
 import com.kraemer.domain.entities.repositories.IProductRepository;
@@ -39,6 +40,9 @@ public class DbFactory {
     @All
     private List<IMarcaRepository> marcaRepositoryImplementations;
 
+    @All
+    private List<IGrupoRepository> grupoRepositoryImplementations;
+
     private static final Map<EnumDBImpl, IUserRepository> userRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, IClientRepository> clientRepositoryServiceCache = new HashMap<>();
@@ -50,6 +54,8 @@ public class DbFactory {
     private static final Map<EnumDBImpl, IOrderRepository> orderRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, IMarcaRepository> marcaRepositoryServiceCache = new HashMap<>();
+
+    private static final Map<EnumDBImpl, IGrupoRepository> grupoRepositoryServiceCache = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -77,6 +83,10 @@ public class DbFactory {
 
         for(IMarcaRepository impl : marcaRepositoryImplementations) {
             marcaRepositoryServiceCache.put(impl.getType(), impl);
+        }
+
+        for(IGrupoRepository impl : grupoRepositoryImplementations) {
+            grupoRepositoryServiceCache.put(impl.getType(), impl);
         }
     }
 
@@ -132,6 +142,16 @@ public class DbFactory {
 
     public IMarcaRepository getMarcaRepositoryImpl(EnumDBImpl impl) {
         IMarcaRepository repository = marcaRepositoryServiceCache.get(impl);
+
+        if (repository == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
+        }
+
+        return repository;
+    }
+
+    public IGrupoRepository getGrupoRepositoryImpl(EnumDBImpl impl) {
+        IGrupoRepository repository = grupoRepositoryServiceCache.get(impl);
 
         if (repository == null) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
