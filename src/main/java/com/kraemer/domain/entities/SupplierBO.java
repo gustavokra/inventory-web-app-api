@@ -92,6 +92,7 @@ public class SupplierBO {
 
         if(StringUtil.isNotNullOrEmpty(document)) {
             this.document = document;
+            validateDocument();
         }
 
         if(StringUtil.isNotNullOrEmpty(contact)) {

@@ -74,7 +74,6 @@ public class ClientBO {
         if (StringUtil.isNotNullOrEmpty(this.getDocument()) && !CpfCnpjUtil.isValidCpfOrCnpj(this.document)) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CPF/CNPJ");
         }
-
     }
 
     public void handleUpdateInfo(String name, String document, String contact, String address, Boolean active) {
@@ -84,6 +83,7 @@ public class ClientBO {
 
         if (StringUtil.isNotNullOrEmpty(document)) {
             this.document = document;
+            validateDocument();
         }
 
         if (StringUtil.isNotNullOrEmpty(contact)) {
