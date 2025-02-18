@@ -1,7 +1,6 @@
 package com.kraemer.infra.database.sqlite.mappers;
 
 import com.kraemer.domain.entities.ProductBO;
-import com.kraemer.infra.database.sqlite.model.SqliteGrupo;
 import com.kraemer.infra.database.sqlite.model.SqliteProduct;
 
 public class SqliteProductMapper {

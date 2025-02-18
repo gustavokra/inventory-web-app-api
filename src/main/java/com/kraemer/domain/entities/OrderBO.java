@@ -25,14 +25,17 @@ public class OrderBO {
 
     private List<OrderItemBO> itemsBO;
 
+    private List<FormaPagamentoBO> formasPagamento;
+
     public OrderBO(Long id, CreatedAtVO createdAt, ClientBO clientBO, EnumOrderStatus enumStatus,
-            BigDecimal totalValue, List<OrderItemBO> itemsBO) {
+            BigDecimal totalValue, List<OrderItemBO> itemsBO, List<FormaPagamentoBO> formasPagamento) {
         this.id = id;
         this.createdAt = createdAt;
         this.clientBO = clientBO;
         this.enumStatus = enumStatus;
         this.totalValue = totalValue;
         this.itemsBO = itemsBO;
+        this.formasPagamento = formasPagamento;
 
         validate();
     }
@@ -59,6 +62,14 @@ public class OrderBO {
 
     public List<OrderItemBO> getItemsBO() {
         return itemsBO;
+    }
+
+    public ClientBO getClientBO() {
+        return clientBO;
+    }
+
+    public List<FormaPagamentoBO> getFormasPagamento() {
+        return formasPagamento;
     }
 
     private void validate() {
