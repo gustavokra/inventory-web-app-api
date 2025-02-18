@@ -44,9 +44,6 @@ public class SqliteOrder extends PanacheEntityBase {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SqliteOrderItem> items = new ArrayList<>();
 
-    @OneToMany(mappedBy = "forma_pagamento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SqliteFormaPagamento> formasPagamento = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -93,14 +90,6 @@ public class SqliteOrder extends PanacheEntityBase {
 
     public void setItems(List<SqliteOrderItem> items) {
         this.items = items;
-    }
-
-    public List<SqliteFormaPagamento> getFormasPagamento() {
-        return formasPagamento;
-    }
-
-    public void setFormasPagamento(List<SqliteFormaPagamento> formasPagamento) {
-        this.formasPagamento = formasPagamento;
     }
 
 }

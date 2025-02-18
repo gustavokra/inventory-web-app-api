@@ -17,8 +17,7 @@ public class OrderMapper {
                 dto.getClient() != null ? ClientMapper.toBO(dto.getClient()) : null,
                 dto.getEnumStatus(),
                 dto.getTotalValue(),
-                dto.getItems().stream().map(OrderItemMapper::toBO).toList(),
-                dto.getFormasPagamento().stream().map(FormaPagamentoMapper::toBO).toList());
+                dto.getItems().stream().map(OrderItemMapper::toBO).toList());
     }
 
     public static OrderDTO toDTO(OrderBO bo) {

@@ -10,9 +10,9 @@ public class FormaPagamentoMapper {
             return null;
         }
         return new FormaPagamentoBO(
-            dto.id(),
-            dto.descricao(),
-            dto.maxParcelas()
+            dto.getId(),
+            dto.getNome(),
+            dto.getnumeroMaxParcelas()
         );
     }
 
@@ -20,10 +20,11 @@ public class FormaPagamentoMapper {
         if (bo == null) {
             return null;
         }
-        return new FormaPagamentoDTO(
-            bo.getId(),
-            bo.getDescricao(),
-            bo.getMaxParcelas()
-        );
+        FormaPagamentoDTO dto = new FormaPagamentoDTO();
+        dto.setId(bo.getId());
+        dto.setNome(bo.getNome());
+        dto.setnumeroMaxParcelas(bo.getnumeroMaxParcelas());
+
+        return dto;
     }
 }

@@ -11,8 +11,8 @@ public class SqliteFormaPagamentoMapper {
         }
         return new FormaPagamentoBO(
             entity.getId(),
-            entity.getDescricao(),
-            entity.getMaxParcelas()
+            entity.getNome(),
+            entity.getnumeroMaxParcelas()
         );
     }
 
@@ -22,8 +22,8 @@ public class SqliteFormaPagamentoMapper {
         }
         SqliteFormaPagamento entity = new SqliteFormaPagamento();
         entity.setId(domain.getId());
-        entity.setDescricao(domain.getDescricao());
-        entity.setMaxParcelas(domain.getMaxParcelas());
+        entity.setNome(domain.getNome());
+        entity.setnumeroMaxParcelas(domain.getnumeroMaxParcelas());
         return entity;
     }
 }

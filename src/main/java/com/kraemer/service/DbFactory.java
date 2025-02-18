@@ -7,6 +7,7 @@ import java.util.Map;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IClientRepository;
+import com.kraemer.domain.entities.repositories.IFormaPagamentoRepository;
 import com.kraemer.domain.entities.repositories.IGrupoRepository;
 import com.kraemer.domain.entities.repositories.IMarcaRepository;
 import com.kraemer.domain.entities.repositories.IOrderRepository;
@@ -42,7 +43,10 @@ public class DbFactory {
 
     @All
     private List<IGrupoRepository> grupoRepositoryImplementations;
-
+    
+    @All
+    private List<IFormaPagamentoRepository> formaPagamentoRepositoryImplementations;
+    
     private static final Map<EnumDBImpl, IUserRepository> userRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, IClientRepository> clientRepositoryServiceCache = new HashMap<>();
@@ -56,6 +60,8 @@ public class DbFactory {
     private static final Map<EnumDBImpl, IMarcaRepository> marcaRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, IGrupoRepository> grupoRepositoryServiceCache = new HashMap<>();
+
+    private static final Map<EnumDBImpl, IFormaPagamentoRepository> formaRepositoryServiceCache = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -87,6 +93,10 @@ public class DbFactory {
 
         for(IGrupoRepository impl : grupoRepositoryImplementations) {
             grupoRepositoryServiceCache.put(impl.getType(), impl);
+        }
+
+        for(IFormaPagamentoRepository impl : formaPagamentoRepositoryImplementations) {
+            formaRepositoryServiceCache.put(impl.getType(), impl);
         }
     }
 
@@ -159,4 +169,15 @@ public class DbFactory {
 
         return repository;
     }
+
+    public IFormaPagamentoRepository getFormaPagamentoRepositoryImpl(EnumDBImpl impl) {
+        IFormaPagamentoRepository repository = formaRepositoryServiceCache.get(impl);
+
+        if (repository == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
+        }
+
+        return repository;
+    }
+
 }

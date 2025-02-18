@@ -1,5 +1,6 @@
 package com.kraemer.infra.database.sqlite.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,17 +10,17 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "forma_pagamento")
-public class SqliteFormaPagamento {
+public class SqliteFormaPagamento extends PanacheEntityBase {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 150)
-    private String descricao;
+    private String nome;
 
     @Column(nullable = true)
-    private Integer maxParcelas;
+    private Integer numeroMaxParcelas;
 
     public Long getId() {
         return id;
@@ -29,20 +30,20 @@ public class SqliteFormaPagamento {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Integer getMaxParcelas() {
-        return maxParcelas;
+    public Integer getnumeroMaxParcelas() {
+        return numeroMaxParcelas;
     }
 
-    public void setMaxParcelas(Integer maxParcelas) {
-        this.maxParcelas = maxParcelas;
+    public void setnumeroMaxParcelas(Integer numeroMaxParcelas) {
+        this.numeroMaxParcelas = numeroMaxParcelas;
     }
 
     

@@ -1,31 +1,56 @@
 package com.kraemer.domain.entities;
 
+import com.kraemer.domain.entities.enums.EnumErrorCode;
+import com.kraemer.domain.utils.NumericUtil;
+import com.kraemer.domain.utils.StringUtil;
+import com.kraemer.domain.utils.exception.InventoryAppException;
+
 public class FormaPagamentoBO {
 
     private Long id;
     
-    private String descricao;
+    private String nome;
 
-    private Integer maxParcelas;
+    private Integer numeroMaxParcelas;
 
-    public FormaPagamentoBO(Long id, String descricao, Integer maxParcelas) {
+    public FormaPagamentoBO(Long id, String nome, Integer numeroMaxParcelas) {
         this.id = id;
-        this.descricao = descricao;
-        this.maxParcelas = maxParcelas;
+        this.nome = nome;
+        this.numeroMaxParcelas = numeroMaxParcelas;
+
+        validate();
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public Integer getMaxParcelas() {
-        return maxParcelas;
+    public Integer getnumeroMaxParcelas() {
+        return numeroMaxParcelas;
     }
 
-    
+    private void validate() {
+        if(StringUtil.isNullOrEmpty(nome)) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "nome");
+        }
+
+        if(NumericUtil.isNullOrZero(numeroMaxParcelas)) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "número de parcelas deve ser maior que 0");
+        }
+    }
+
+    public void handleAtualizar(String nome, Integer numeroMaxParcelas) {
+        if(StringUtil.isNotNullOrEmpty(nome)) {
+            this.nome = nome;
+        }
+
+        if(!NumericUtil.isNullOrZero(numeroMaxParcelas)) {
+            this.numeroMaxParcelas = numeroMaxParcelas;
+        }
+    }
 }
 

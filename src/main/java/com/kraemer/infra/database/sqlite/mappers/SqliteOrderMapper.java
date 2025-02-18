@@ -50,8 +50,7 @@ public class SqliteOrderMapper {
                 SqliteClientMapper.toDomain(entity.getClient()),
                 entity.getStatus(),
                 entity.getTotalValue(),
-                entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null,
-                entity.getFormasPagamento() != null ? entity.getFormasPagamento().stream().map(SqliteFormaPagamentoMapper::toDomain).toList() : null
+                entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null
                 );
     }
 }

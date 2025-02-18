@@ -28,14 +28,13 @@ public class OrderBO {
     private List<FormaPagamentoBO> formasPagamento;
 
     public OrderBO(Long id, CreatedAtVO createdAt, ClientBO clientBO, EnumOrderStatus enumStatus,
-            BigDecimal totalValue, List<OrderItemBO> itemsBO, List<FormaPagamentoBO> formasPagamento) {
+            BigDecimal totalValue, List<OrderItemBO> itemsBO) {
         this.id = id;
         this.createdAt = createdAt;
         this.clientBO = clientBO;
         this.enumStatus = enumStatus;
         this.totalValue = totalValue;
         this.itemsBO = itemsBO;
-        this.formasPagamento = formasPagamento;
 
         validate();
     }
