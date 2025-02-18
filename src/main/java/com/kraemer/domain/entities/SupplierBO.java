@@ -79,8 +79,7 @@ public class SupplierBO {
     }
 
     private void validateDocument() {
-        if(StringUtil.isNotNullOrEmpty(this.getDocument()) && 
-            !CpfCnpjUtil.isValidCNPJ(this.document.replace(".", "").replace("/", "").replace("-", ""))) {
+        if(StringUtil.isNotNullOrEmpty(this.getDocument()) && !CpfCnpjUtil.isValidCpfOrCnpj(this.document)) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "CNPJ");
         }
     }

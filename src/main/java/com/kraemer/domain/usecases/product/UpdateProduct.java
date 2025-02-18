@@ -5,6 +5,7 @@ import java.util.List;
 import com.kraemer.domain.entities.dto.ProductDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.ProductMapper;
+import com.kraemer.domain.entities.mappers.SupplierMapper;
 import com.kraemer.domain.entities.repositories.IProductRepository;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
@@ -28,24 +29,16 @@ public class UpdateProduct {
             throw new InventoryAppException(EnumErrorCode.ENTIDADE_NAO_ENCONTRADA, "produto", "id", id);
         }
 
+        verifyName(dto.getName(), id);
+
         existingProduct.handleUpdate(
                 dto.getName(),
                 dto.getDescription(),
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),
+                dto.getSupplier() != null ? SupplierMapper.toBO(dto.getSupplier()) : null,
                 dto.getActive());
-
-        if (dto.getSupplier() != null) {
-            var supplierDTO = dto.getSupplier();
-
-            existingProduct.getSupplier()
-                    .handleUpdateInfo(supplierDTO.getName(),
-                            supplierDTO.getDocument(),
-                            supplierDTO.getContact(),
-                            supplierDTO.getAddress(),
-                            supplierDTO.isActive());
-        }
 
         return ProductMapper.toDTO(repository.merge(existingProduct));
     }
@@ -56,6 +49,16 @@ public class UpdateProduct {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
         }
 
+    }
+
+    private void verifyName(String name, Long id) {
+        var nameField = new QueryFieldInfoVO("name", String.valueOf(name));
+
+        var preExistingProductWithName = repository.findFirstBy(List.of(nameField));
+
+        if (preExistingProductWithName != null && !preExistingProductWithName.getId().equals(id)) {
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Produto com nome '" + name + "'");
+        }
     }
 
 }

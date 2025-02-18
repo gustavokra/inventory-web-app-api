@@ -1,7 +1,6 @@
 package com.kraemer.domain.entities;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.utils.NumericUtil;
@@ -16,9 +15,9 @@ public class ProductBO {
 
     private String description;
 
-    private MarcaBO marcaBO;
+    private MarcaBO marca;
 
-    private GrupoBO grupoBO;
+    private GrupoBO grupo;
 
     private BigDecimal price;
 
@@ -30,13 +29,13 @@ public class ProductBO {
 
     private Boolean active;
 
-    public ProductBO(Long id, String name, String description, MarcaBO marcaBO, GrupoBO grupoBO, BigDecimal price, Integer quantity, String image,
+    public ProductBO(Long id, String name, String description, MarcaBO marca, GrupoBO grupo, BigDecimal price, Integer quantity, String image,
             SupplierBO supplier, Boolean active) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.marcaBO = marcaBO;
-        this.grupoBO = grupoBO;
+        this.marca = marca;
+        this.grupo = grupo;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
@@ -83,11 +82,11 @@ public class ProductBO {
     }
 
     public MarcaBO getMarcaBO() {
-        return marcaBO;
+        return marca;
     }
 
     public GrupoBO getGrupoBO() {
-        return grupoBO;
+        return grupo;
     }
 
     private void validate() {
@@ -98,7 +97,7 @@ public class ProductBO {
 
     }
 
-    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image,
+    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image, SupplierBO supplier,
             Boolean active) {
         if (StringUtil.isNotNullOrEmpty(name)) {
             this.name = name;
@@ -126,6 +125,10 @@ public class ProductBO {
 
         if (StringUtil.isNotNullOrEmpty(image)) {
             this.image = image;
+        }
+
+        if(supplier != null) {
+            this.supplier = supplier;
         }
 
         if (active != null) {

@@ -30,7 +30,7 @@ public class CreateProduct {
         var existentProduct = repository.findFirstBy(List.of(fieldProductName));
         
         if(existentProduct != null) {
-            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Produto com esse nome");
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Produto com nome '" + productName + "'");
         }
     }
 

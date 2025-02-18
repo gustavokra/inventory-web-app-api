@@ -21,20 +21,29 @@ public class CreateClient {
     public ClientDTO execute(ClientDTO dto) {
         var bo = ClientMapper.toBO(dto);
 
-        verifyExistingClient(bo.getDocument());
+        verifyExistingClient(bo.getName(), bo.getDocument());
 
         var createdClient = repository.create(bo);
 
         return ClientMapper.toDTO(createdClient);
     }
 
-    private void verifyExistingClient(String document) {
+    private void verifyExistingClient(String name, String document) {
+        if (StringUtil.isNotNullOrEmpty(name)) {
+            QueryFieldInfoVO nameField = new QueryFieldInfoVO("name", name);
+            var existingClientBO = repository.findFirstBy(List.of(nameField));
+
+            if (existingClientBO != null) {
+                throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Cliente com nome '" + name + "'");
+            }
+        }
+
         if (StringUtil.isNotNullOrEmpty(document)) {
             QueryFieldInfoVO documentField = new QueryFieldInfoVO("document", document);
             var existingClientBO = repository.findFirstBy(List.of(documentField));
 
             if (existingClientBO != null) {
-                throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Cliente com documento " + document);
+                throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Cliente com documento '" + document + "'");
             }
         }
     }
