@@ -24,7 +24,7 @@ public class AtualizarFormaPagamento {
     public FormaPagamentoDTO execute(FormaPagamentoDTO dto, Long id) {
         var formaPagamentoAtualizar = verifyExistingFormaPagamento(id);
 
-        formaPagamentoAtualizar.handleAtualizar(
+        formaPagamentoAtualizar.verificarAtualizacao(
                 dto.getNome(),
                 dto.getnumeroMaxParcelas());
 

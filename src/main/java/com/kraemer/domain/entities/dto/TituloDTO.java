@@ -1,5 +1,7 @@
 package com.kraemer.domain.entities.dto;
 
+import java.time.LocalDateTime;
+
 public class TituloDTO {
 
     private Long id;
@@ -7,6 +9,8 @@ public class TituloDTO {
     private OrderDTO pedido;
 
     private FormaPagamentoDTO formaPagamento;
+
+    private LocalDateTime dataCriacao;
 
     public OrderDTO getPedido() {
         return pedido;
@@ -30,6 +34,14 @@ public class TituloDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
 }

@@ -1,5 +1,9 @@
 package com.kraemer.infra.database.sqlite.model;
 
+import java.time.LocalDateTime;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "titulo")
-public class SqliteTitulo {
+public class SqliteTitulo extends PanacheEntityBase {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +27,9 @@ public class SqliteTitulo {
     @ManyToOne
     @JoinColumn(name = "forma_pagamento_id", nullable = false)
     private SqliteFormaPagamento formaPagamento;
+
+    @Column(nullable = false)
+    private LocalDateTime dataCriacao;
 
     public Long getId() {
         return id;
@@ -48,5 +55,12 @@ public class SqliteTitulo {
         this.formaPagamento = formaPagamento;
     }
 
-    
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
 }

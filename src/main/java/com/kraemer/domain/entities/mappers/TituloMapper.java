@@ -6,6 +6,7 @@ import com.kraemer.domain.entities.TituloBO;
 import com.kraemer.domain.entities.dto.FormaPagamentoDTO;
 import com.kraemer.domain.entities.dto.OrderDTO;
 import com.kraemer.domain.entities.dto.TituloDTO;
+import com.kraemer.domain.entities.vo.CreatedAtVO;
 
 public class TituloMapper {
     public static TituloBO toBO(TituloDTO dto) {
@@ -18,7 +19,7 @@ public class TituloMapper {
                 ? FormaPagamentoMapper.toBO(dto.getFormaPagamento())
                 : null;
 
-        return new TituloBO(dto.getId(), pedidoBO, formaPagamentoBO);
+        return new TituloBO(dto.getId(), pedidoBO, formaPagamentoBO, new CreatedAtVO(dto.getDataCriacao()));
     }
 
     public static TituloDTO toDTO(TituloBO bo) {
@@ -33,6 +34,7 @@ public class TituloMapper {
         tituloDTO.setId(bo.getId());
         tituloDTO.setPedido(pedidoDTO);
         tituloDTO.setFormaPagamento(formaPagamentoDTO);
+        tituloDTO.setDataCriacao(bo.getDataCriacao().getValue());
 
         return tituloDTO;
     }

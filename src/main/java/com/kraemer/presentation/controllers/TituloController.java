@@ -2,9 +2,9 @@ package com.kraemer.presentation.controllers;
 
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
-import com.kraemer.domain.entities.dto.FormaPagamentoDTO;
+import com.kraemer.domain.entities.dto.TituloDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
-import com.kraemer.service.FormaPagamentoService;
+import com.kraemer.service.TituloService;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -18,42 +18,42 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("api/v1/forma_pagamento")
-public class FormaPagamentoController {
-
+@Path("api/v1/titulo")
+public class TituloController {
+    
     @Inject
-    private FormaPagamentoService service;
+    private TituloService service;
 
     @GET
     @RolesAllowed({ "ADMIN", "USER" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response encontrarTodas(@HeaderParam EnumDBImpl dbImpl) {
-        var formasPagamento = service.encontrarTodas(dbImpl);
+        var titulos = service.encontrarTodos(dbImpl);
 
-        return Response.ok(formasPagamento).build();
+        return Response.ok(titulos).build();
     }
 
     @POST
     @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response criar(FormaPagamentoDTO dto, @HeaderParam EnumDBImpl dbImpl) {
-        var formaPagamentoCriada = service.criar(dto, dbImpl);
+    public Response criar(TituloDTO dto, @HeaderParam EnumDBImpl dbImpl) {
+        var tituloCriado = service.criar(dto, dbImpl);
 
-        return Response.ok(formaPagamentoCriada).build();
+        return Response.ok(tituloCriado).build();
     }
 
     @PUT
     @RolesAllowed({ "ADMIN" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response atualizar(
-            FormaPagamentoDTO dto,
+            TituloDTO dto,
             @HeaderParam Long id,
             @HeaderParam EnumDBImpl dbImpl) {
 
-        var formaPagamentoAtualizada = service.atualizar(dto, id, dbImpl);
+        var tituloAtualizado = service.atualizar(dto, id, dbImpl);
 
-        return Response.ok(formaPagamentoAtualizada).build();
+        return Response.ok(tituloAtualizado).build();
     }
 
     @DELETE

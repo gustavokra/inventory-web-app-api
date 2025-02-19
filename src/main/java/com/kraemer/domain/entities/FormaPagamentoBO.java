@@ -43,7 +43,7 @@ public class FormaPagamentoBO {
         }
     }
 
-    public void handleAtualizar(String nome, Integer numeroMaxParcelas) {
+    public void verificarAtualizacao(String nome, Integer numeroMaxParcelas) {
         if(StringUtil.isNotNullOrEmpty(nome)) {
             this.nome = nome;
         }
