@@ -20,7 +20,7 @@ public class OrderDTO {
 
     private List<OrderItemDTO> items;
 
-    private List<FormaPagamentoDTO> formasPagamento;
+    private List<TituloDTO> titulos;
 
     public Long getId() {
         return id;
@@ -69,13 +69,13 @@ public class OrderDTO {
     public void setItems(List<OrderItemDTO> items) {
         this.items = items;
     }
-
-    public List<FormaPagamentoDTO> getFormasPagamento() {
-        return formasPagamento;
+    
+    public List<TituloDTO> getTitulos() {
+        return titulos;
     }
 
-    public void setFormasPagamento(List<FormaPagamentoDTO> formasPagamento) {
-        this.formasPagamento = formasPagamento;
+    public void setTitulos(List<TituloDTO> titulos) {
+        this.titulos = titulos;
     }
 
 }

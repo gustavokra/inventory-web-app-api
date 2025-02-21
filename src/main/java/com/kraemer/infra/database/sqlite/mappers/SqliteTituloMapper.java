@@ -15,6 +15,8 @@ public class SqliteTituloMapper {
             entity.getId(),
             SqliteOrderMapper.toDomain(entity.getPedido()),
             SqliteFormaPagamentoMapper.toDomain(entity.getFormaPagamento()),
+            entity.getNumeroParcelas(),
+            entity.getValorParcelas(),
             new CreatedAtVO(entity.getDataCriacao())
         );
     }
@@ -29,6 +31,8 @@ public class SqliteTituloMapper {
         entity.setId(domain.getId());
         entity.setPedido(SqliteOrderMapper.toEntity(domain.getPedido()));
         entity.setFormaPagamento(SqliteFormaPagamentoMapper.toEntity(domain.getFormaPagamento()));
+        entity.setNumeroParcelas(domain.getNumeroParcelas());
+        entity.setValorParcelas(domain.getValorParcelas());
         entity.setDataCriacao(domain.getDataCriacao().getValue());
         
         return entity;

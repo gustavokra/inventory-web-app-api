@@ -25,17 +25,18 @@ public class OrderBO {
 
     private List<OrderItemBO> itemsBO;
 
-    private List<FormaPagamentoBO> formasPagamento;
+    private List<TituloBO> titulos;
 
     public OrderBO(Long id, CreatedAtVO createdAt, ClientBO clientBO, EnumOrderStatus enumStatus,
-            BigDecimal totalValue, List<OrderItemBO> itemsBO) {
+            BigDecimal totalValue, List<OrderItemBO> itemsBO, List<TituloBO> titulos) {
         this.id = id;
         this.createdAt = createdAt;
         this.clientBO = clientBO;
         this.enumStatus = enumStatus;
         this.totalValue = totalValue;
         this.itemsBO = itemsBO;
-
+        this.titulos = titulos;
+        
         validate();
     }
 
@@ -67,14 +68,10 @@ public class OrderBO {
         return clientBO;
     }
 
-    public List<FormaPagamentoBO> getFormasPagamento() {
-        return formasPagamento;
-    }
-
     private void validate() {
 
         if (this.clientBO == null) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "cliente");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Cliente");
         }
 
         if (enumStatus == null) {
@@ -82,7 +79,11 @@ public class OrderBO {
         }
 
         if (ListUtil.isNullOrEmpty(itemsBO)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "itemsBO do pedido");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Items do pedido");
+        }
+
+        if (ListUtil.isNullOrEmpty(titulos)) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Forma de pagamento");
         }
 
     }
@@ -151,6 +152,10 @@ public class OrderBO {
 
         sumTotalValue();
 
+    }
+
+    public List<TituloBO> getTitulos() {
+        return titulos;
     }
 
 }

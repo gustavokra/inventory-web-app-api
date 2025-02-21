@@ -1,7 +1,5 @@
 package com.kraemer.infra.database.sqlite.mappers;
 
-import java.util.stream.Collectors;
-
 import com.kraemer.domain.entities.OrderBO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
@@ -31,9 +29,11 @@ public class SqliteOrderMapper {
         }
 
         if (domain.getItemsBO() != null && !domain.getItemsBO().isEmpty()) {
-            entity.setItems(domain.getItemsBO().stream()
-                    .map(SqliteOrderItemMapper::toEntity)
-                    .toList());
+            entity.setItems(domain.getItemsBO().stream().map(SqliteOrderItemMapper::toEntity).toList());
+        }
+
+        if(domain.getTitulos() != null && !domain.getTitulos().isEmpty()) {
+            entity.setTitulos(domain.getTitulos().stream().map(SqliteTituloMapper::toEntity).toList());
         }
 
         return entity;
@@ -50,7 +50,7 @@ public class SqliteOrderMapper {
                 SqliteClientMapper.toDomain(entity.getClient()),
                 entity.getStatus(),
                 entity.getTotalValue(),
-                entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null
-                );
+                entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null,
+                entity.getTitulos() != null ? entity.getTitulos().stream().map(SqliteTituloMapper::toDomain).toList() : null);
     }
 }

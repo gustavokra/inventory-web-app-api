@@ -19,7 +19,7 @@ public class TituloMapper {
                 ? FormaPagamentoMapper.toBO(dto.getFormaPagamento())
                 : null;
 
-        return new TituloBO(dto.getId(), pedidoBO, formaPagamentoBO, new CreatedAtVO(dto.getDataCriacao()));
+        return new TituloBO(dto.getId(), pedidoBO, formaPagamentoBO, dto.getNumeroParcelas(), dto.getValorParcelas() , new CreatedAtVO(dto.getDataCriacao()));
     }
 
     public static TituloDTO toDTO(TituloBO bo) {
@@ -34,6 +34,8 @@ public class TituloMapper {
         tituloDTO.setId(bo.getId());
         tituloDTO.setPedido(pedidoDTO);
         tituloDTO.setFormaPagamento(formaPagamentoDTO);
+        tituloDTO.setNumeroParcelas(bo.getNumeroParcelas());
+        tituloDTO.setValorParcelas(bo.getValorParcelas());
         tituloDTO.setDataCriacao(bo.getDataCriacao().getValue());
 
         return tituloDTO;

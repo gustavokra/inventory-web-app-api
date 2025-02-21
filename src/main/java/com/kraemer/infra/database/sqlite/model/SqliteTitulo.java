@@ -1,5 +1,6 @@
 package com.kraemer.infra.database.sqlite.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -15,7 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "titulo")
 public class SqliteTitulo extends PanacheEntityBase {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +28,12 @@ public class SqliteTitulo extends PanacheEntityBase {
     @ManyToOne
     @JoinColumn(name = "forma_pagamento_id", nullable = false)
     private SqliteFormaPagamento formaPagamento;
+
+    @Column(nullable = false)
+    private Integer numeroParcelas;
+
+    @Column(nullable = false, precision = 2)
+    private BigDecimal valorParcelas;
 
     @Column(nullable = false)
     private LocalDateTime dataCriacao;
@@ -61,6 +68,22 @@ public class SqliteTitulo extends PanacheEntityBase {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public Integer getNumeroParcelas() {
+        return numeroParcelas;
+    }
+
+    public void setNumeroParcelas(Integer numeroParcelas) {
+        this.numeroParcelas = numeroParcelas;
+    }
+
+    public BigDecimal getValorParcelas() {
+        return valorParcelas;
+    }
+
+    public void setValorParcelas(BigDecimal valorParcelas) {
+        this.valorParcelas = valorParcelas;
     }
 
 }

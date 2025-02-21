@@ -28,8 +28,18 @@ public class SqliteOrderRepository implements IOrderRepository {
     public OrderBO create(OrderBO bo) {
         var entity = SqliteOrderMapper.toEntity(bo);
 
-        for (SqliteOrderItem item : entity.getItems()) {
-            item.setOrder(entity);
+        validarItems(entity);
+
+
+
+        entity.persist();
+
+        return SqliteOrderMapper.toDomain(entity);
+    }
+
+    private void validarItems(SqliteOrder entidade) {
+        for (SqliteOrderItem item : entidade.getItems()) {
+            item.setOrder(entidade);
 
             if (NumericUtil.isLessOrEquals(item.getProduct().getQuantity() - item.getQuantity(), -1)) {
                 throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Quantidade de produtos excede estoque, ");
@@ -37,10 +47,6 @@ public class SqliteOrderRepository implements IOrderRepository {
 
             item.getProduct().setQuantity(item.getProduct().getQuantity() - item.getQuantity());
         }
-
-        entity.persist();
-
-        return SqliteOrderMapper.toDomain(entity);
     }
 
     public OrderBO merge(OrderBO bo) {
