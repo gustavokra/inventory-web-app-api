@@ -83,9 +83,8 @@ public class OrderBO {
         }
 
         if (ListUtil.isNullOrEmpty(titulos)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Forma de pagamento");
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Titulos");
         }
-
     }
 
     public void handleCreate() {
@@ -118,7 +117,7 @@ public class OrderBO {
         if (errorMessage.length() > 0) {
             throw new InventoryAppException(
                     EnumErrorCode.ERRO_AO_CRIAR,
-                    "Pedido. \n" + errorMessage.toString().trim()
+                    "Pedido. " + errorMessage.toString().trim()
             );
         }
     }
@@ -136,7 +135,8 @@ public class OrderBO {
     
     public void handleUpdate(ClientBO clientBO,
             EnumOrderStatus enumStatus,
-            List<OrderItemBO> itemsBO) {
+            List<OrderItemBO> itemsBO,
+            List<TituloBO> titulos) {
 
         if (clientBO != null) {
             this.clientBO = clientBO;
@@ -148,6 +148,10 @@ public class OrderBO {
 
         if (ListUtil.isNotNullOrEmpty(itemsBO)) {
             this.itemsBO = itemsBO;
+        }
+
+        if (ListUtil.isNotNullOrEmpty(titulos)) {
+            this.titulos = titulos;
         }
 
         sumTotalValue();

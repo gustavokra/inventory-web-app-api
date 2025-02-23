@@ -2,6 +2,7 @@ package com.kraemer.domain.entities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
@@ -12,7 +13,7 @@ public class TituloBO {
 
     private Long id;
     
-    private OrderBO pedido;
+    private Long idPedido;
 
     private FormaPagamentoBO formaPagamento;
 
@@ -22,9 +23,9 @@ public class TituloBO {
 
     private CreatedAtVO dataCriacao;
 
-    public TituloBO(Long id, OrderBO pedido, FormaPagamentoBO formaPagamento, Integer numeroParcelas, BigDecimal valorParcelas, CreatedAtVO dataCriacao) {
+    public TituloBO(Long id, Long idPedido, FormaPagamentoBO formaPagamento, Integer numeroParcelas, BigDecimal valorParcelas, CreatedAtVO dataCriacao) {
         this.id = id;
-        this.pedido = pedido;
+        this.idPedido = idPedido;
         this.formaPagamento = formaPagamento;
         this.numeroParcelas = numeroParcelas;
         this.valorParcelas = valorParcelas;
@@ -34,7 +35,7 @@ public class TituloBO {
     }
 
     private void validate() {
-        if(pedido == null) {
+        if(idPedido == null) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Pedido");
         }
 
@@ -42,20 +43,47 @@ public class TituloBO {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Forma de Pagamento");
         }
 
-        valorParcelas = calcularValorParcela(pedido.getTotalValue(), numeroParcelas);
+                if(formaPagamento == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Forma de Pagamento");
+        }
+
+        if(numeroParcelas == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Número de Parcelas");
+        }
+
+        if(valorParcelas == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "Valor das Parcelas");
+        }
     }
 
-    public static BigDecimal calcularValorParcela(BigDecimal valorTotal, int numeroParcelas) {
+    public void handleCreate() {
+        if(id == null) {
+            id = 0l;
+        }
+
+        dataCriacao = new CreatedAtVO(LocalDateTime.now());
+
+    }
+
+    public BigDecimal calcularValorParcela(BigDecimal valorTotal) {
         return valorTotal.divide(NumericUtil.toBigDecimal(numeroParcelas), RoundingMode.HALF_UP);
     }
 
-    public void verificarAtualizacao(OrderBO pedido, FormaPagamentoBO formaPagamento) {
-        if(pedido != null) {
-            this.pedido = pedido;
+    public void atualizarAtributos(Long idPedido, FormaPagamentoBO formaPagamento, Integer numeroParcelas, BigDecimal valorParcelas) {
+        if(idPedido != null) {
+            this.idPedido = idPedido;
         }
 
         if(formaPagamento != null) {
             this.formaPagamento = formaPagamento;
+        }
+
+        if(numeroParcelas != null) {
+            this.numeroParcelas = numeroParcelas;
+        }
+
+        if(valorParcelas != null) {
+            this.valorParcelas = valorParcelas;
         }
     }
 
@@ -63,8 +91,8 @@ public class TituloBO {
         return id;
     }
 
-    public OrderBO getPedido() {
-        return pedido;
+    public Long getIdPedido() {
+        return idPedido;
     }
 
     public FormaPagamentoBO getFormaPagamento() {

@@ -6,7 +6,6 @@ import com.kraemer.domain.entities.TituloBO;
 import com.kraemer.domain.entities.dto.TituloDTO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.FormaPagamentoMapper;
-import com.kraemer.domain.entities.mappers.OrderMapper;
 import com.kraemer.domain.entities.mappers.TituloMapper;
 import com.kraemer.domain.entities.repositories.ITituloRepository;
 import com.kraemer.domain.utils.exception.InventoryAppException;
@@ -26,9 +25,11 @@ public class AtualizarTitulo {
     public TituloDTO execute(TituloDTO dto, Long id) {
         var tituloAtualizar = verifyExistingTitulo(id);
 
-        tituloAtualizar.verificarAtualizacao(
-                OrderMapper.toBO(dto.getPedido()),
-                FormaPagamentoMapper.toBO(dto.getFormaPagamento()));
+        tituloAtualizar.atualizarAtributos(
+                dto.getIdPedido(),
+                FormaPagamentoMapper.toBO(dto.getFormaPagamento()),
+                dto.getNumeroParcelas(),
+                dto.getValorParcelas());
 
         repository.atualizar(tituloAtualizar);
 

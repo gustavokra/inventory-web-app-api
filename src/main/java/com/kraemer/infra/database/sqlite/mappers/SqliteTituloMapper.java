@@ -3,6 +3,7 @@ package com.kraemer.infra.database.sqlite.mappers;
 
 import com.kraemer.domain.entities.TituloBO;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
+import com.kraemer.infra.database.sqlite.model.SqliteOrder;
 import com.kraemer.infra.database.sqlite.model.SqliteTitulo;
 
 public class SqliteTituloMapper {
@@ -13,7 +14,7 @@ public class SqliteTituloMapper {
         }
         return new TituloBO(
             entity.getId(),
-            SqliteOrderMapper.toDomain(entity.getPedido()),
+            entity.getPedido().getId(),
             SqliteFormaPagamentoMapper.toDomain(entity.getFormaPagamento()),
             entity.getNumeroParcelas(),
             entity.getValorParcelas(),
@@ -29,7 +30,7 @@ public class SqliteTituloMapper {
         SqliteTitulo entity = new SqliteTitulo();
         
         entity.setId(domain.getId());
-        entity.setPedido(SqliteOrderMapper.toEntity(domain.getPedido()));
+        entity.setPedido(SqliteOrder.findById(domain.getIdPedido()));
         entity.setFormaPagamento(SqliteFormaPagamentoMapper.toEntity(domain.getFormaPagamento()));
         entity.setNumeroParcelas(domain.getNumeroParcelas());
         entity.setValorParcelas(domain.getValorParcelas());

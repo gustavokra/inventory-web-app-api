@@ -7,7 +7,7 @@ public class TituloDTO {
 
     private Long id;
 
-    private OrderDTO pedido;
+    private Long idPedido;
 
     private FormaPagamentoDTO formaPagamento;
 
@@ -17,12 +17,12 @@ public class TituloDTO {
 
     private LocalDateTime dataCriacao;
 
-    public OrderDTO getPedido() {
-        return pedido;
+    public Long getIdPedido() {
+        return idPedido;
     }
 
-    public void setPedido(OrderDTO pedido) {
-        this.pedido = pedido;
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
     }
 
     public FormaPagamentoDTO getFormaPagamento() {

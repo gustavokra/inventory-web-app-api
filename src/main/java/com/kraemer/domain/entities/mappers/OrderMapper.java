@@ -18,7 +18,7 @@ public class OrderMapper {
                 dto.getEnumStatus(),
                 dto.getTotalValue(),
                 dto.getItems().stream().map(OrderItemMapper::toBO).toList(),
-                dto.getTitulos().stream().map(TituloMapper::toBO).toList());
+                dto.getTitulos() != null ? dto.getTitulos().stream().map(TituloMapper::toBO).toList() : null);
     }
 
     public static OrderDTO toDTO(OrderBO bo) {
@@ -33,7 +33,7 @@ public class OrderMapper {
         dto.setEnumStatus(bo.getEnumStatus());
         dto.setTotalValue(bo.getTotalValue());
         dto.setItems(bo.getItemsBO().stream().map(OrderItemMapper::toDTO).toList());
-        dto.setTitulos(bo.getTitulos().stream().map(TituloMapper::toDTO).toList());
+        dto.setTitulos(bo.getTitulos() != null ? bo.getTitulos().stream().map(TituloMapper::toDTO).toList() : null);
         
         return dto;
     }

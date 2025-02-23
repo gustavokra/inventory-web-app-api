@@ -7,6 +7,7 @@ import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.mappers.ClientMapper;
 import com.kraemer.domain.entities.mappers.OrderItemMapper;
 import com.kraemer.domain.entities.mappers.OrderMapper;
+import com.kraemer.domain.entities.mappers.TituloMapper;
 import com.kraemer.domain.entities.repositories.IOrderRepository;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;;
@@ -32,8 +33,8 @@ public class UpdateOrder {
         existingOrder.handleUpdate(
                 dto.getClient() != null ? ClientMapper.toBO(dto.getClient()) : null,
                 dto.getEnumStatus(),
-                dto.getItems() != null ? dto.getItems().stream()
-                        .map(OrderItemMapper::toBO).toList() : null);
+                dto.getItems() != null ? dto.getItems().stream().map(OrderItemMapper::toBO).toList() : null,
+                dto.getTitulos() != null ? dto.getTitulos().stream().map(TituloMapper::toBO).toList() : null);
 
         var orderUpdated = repository.merge(existingOrder);
 

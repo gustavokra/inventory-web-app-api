@@ -6,6 +6,9 @@ import com.kraemer.domain.entities.vo.CreatedAtVO;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.infra.database.sqlite.model.SqliteClient;
 import com.kraemer.infra.database.sqlite.model.SqliteOrder;
+import com.kraemer.infra.database.sqlite.model.SqliteTitulo;
+
+import io.quarkus.panache.common.Parameters;
 
 public class SqliteOrderMapper {
     public static SqliteOrder toEntity(OrderBO domain) {
@@ -32,10 +35,6 @@ public class SqliteOrderMapper {
             entity.setItems(domain.getItemsBO().stream().map(SqliteOrderItemMapper::toEntity).toList());
         }
 
-        if(domain.getTitulos() != null && !domain.getTitulos().isEmpty()) {
-            entity.setTitulos(domain.getTitulos().stream().map(SqliteTituloMapper::toEntity).toList());
-        }
-
         return entity;
     }
 
@@ -44,6 +43,7 @@ public class SqliteOrderMapper {
             return null;
         }
 
+
         return new OrderBO(
                 entity.getId(),
                 new CreatedAtVO(entity.getCreatedAt()),
@@ -51,6 +51,6 @@ public class SqliteOrderMapper {
                 entity.getStatus(),
                 entity.getTotalValue(),
                 entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null,
-                entity.getTitulos() != null ? entity.getTitulos().stream().map(SqliteTituloMapper::toDomain).toList() : null);
+                SqliteTitulo.list("pedido.id = :pedidoId", Parameters.with("pedidoId", entity.getId()).map()).stream().map(titulo -> SqliteTituloMapper.toDomain((SqliteTitulo) titulo)).toList());
     }
 }

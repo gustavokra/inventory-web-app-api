@@ -13,7 +13,11 @@ public class CriarTitulo {
     }
 
     public TituloDTO execute(TituloDTO dto) {
-        repository.criar(TituloMapper.toBO(dto));
+        var tituloBO = TituloMapper.toBO(dto);
+        
+        tituloBO.handleCreate();
+
+        repository.criar(tituloBO);
 
         return dto;
     }

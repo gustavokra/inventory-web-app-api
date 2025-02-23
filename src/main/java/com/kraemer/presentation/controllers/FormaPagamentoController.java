@@ -18,7 +18,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("api/v1/forma_pagamento")
+@Path("api/v1/forma-pagamento")
 public class FormaPagamentoController {
 
     @Inject
