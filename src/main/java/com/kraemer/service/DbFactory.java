@@ -15,6 +15,7 @@ import com.kraemer.domain.entities.repositories.IProductRepository;
 import com.kraemer.domain.entities.repositories.ISupplierRepository;
 import com.kraemer.domain.entities.repositories.ITituloRepository;
 import com.kraemer.domain.entities.repositories.IUserRepository;
+import com.kraemer.domain.entities.repositories.IOperacaoCaixaRepository;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 
 import io.quarkus.arc.All;
@@ -51,6 +52,9 @@ public class DbFactory {
     @All
     private List<ITituloRepository> tituloRepositoryImplementations;
     
+    @All
+    private List<IOperacaoCaixaRepository> operacaoCaixaRepositoryImplementations;
+    
     private static final Map<EnumDBImpl, IUserRepository> userRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, IClientRepository> clientRepositoryServiceCache = new HashMap<>();
@@ -68,6 +72,8 @@ public class DbFactory {
     private static final Map<EnumDBImpl, IFormaPagamentoRepository> formaRepositoryServiceCache = new HashMap<>();
 
     private static final Map<EnumDBImpl, ITituloRepository> tituloServiceCache = new HashMap<>();
+
+    private static final Map<EnumDBImpl, IOperacaoCaixaRepository> operacaoCaixaRepositoryServiceCache = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -107,6 +113,10 @@ public class DbFactory {
 
         for(ITituloRepository impl : tituloRepositoryImplementations) {
             tituloServiceCache.put(impl.getType(), impl);
+        }
+
+        for(IOperacaoCaixaRepository impl : operacaoCaixaRepositoryImplementations) {
+            operacaoCaixaRepositoryServiceCache.put(impl.getType(), impl);
         }
     }
 
@@ -197,6 +207,16 @@ public class DbFactory {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
         }
 
+        return repository;
+    }
+
+    public IOperacaoCaixaRepository getOperacaoCaixaRepositoryImpl(EnumDBImpl impl) {
+        IOperacaoCaixaRepository repository = operacaoCaixaRepositoryServiceCache.get(impl);
+        
+        if (repository == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "dbImpl");
+        }
+        
         return repository;
     }
 
