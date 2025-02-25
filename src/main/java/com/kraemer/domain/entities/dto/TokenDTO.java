@@ -6,6 +6,8 @@ public class TokenDTO {
 
     private boolean admin;
 
+    private long userId;
+
     public String getToken() {
         return this.token;
     }
@@ -20,6 +22,14 @@ public class TokenDTO {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     

@@ -27,8 +27,15 @@ public class OrderBO {
 
     private List<TituloBO> titulos;
 
+    private Boolean geradoNoCaixa;
+
+    private BigDecimal discount;
+
+    private String observacao;
+
     public OrderBO(Long id, CreatedAtVO createdAt, ClientBO clientBO, EnumOrderStatus enumStatus,
-            BigDecimal totalValue, List<OrderItemBO> itemsBO, List<TituloBO> titulos) {
+            BigDecimal totalValue, List<OrderItemBO> itemsBO, List<TituloBO> titulos,
+            Boolean geradoNoCaixa, BigDecimal discount, String observacao) {
         this.id = id;
         this.createdAt = createdAt;
         this.clientBO = clientBO;
@@ -36,6 +43,9 @@ public class OrderBO {
         this.totalValue = totalValue;
         this.itemsBO = itemsBO;
         this.titulos = titulos;
+        this.geradoNoCaixa = geradoNoCaixa;
+        this.discount = discount;
+        this.observacao = observacao;
         
         validate();
     }
@@ -88,16 +98,16 @@ public class OrderBO {
     }
 
     public void handleCreate() {
-        sumTotalValue();
+        // sumTotalValue();
 
         verifyInactiveEntities();
     }
 
-    public void sumTotalValue() {
-        this.totalValue = itemsBO.stream()
-        .map(item ->  item.getUnitPrice().multiply(NumericUtil.toBigDecimal(item.getQuantity())))
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+    // public void sumTotalValue() {
+    //     this.totalValue = itemsBO.stream()
+    //     .map(item ->  item.getUnitPrice().multiply(NumericUtil.toBigDecimal(item.getQuantity())))
+    //     .reduce(BigDecimal.ZERO, BigDecimal::add);
+    // }
 
     private void verifyInactiveEntities() {
         StringBuilder errorMessage = new StringBuilder();
@@ -136,30 +146,36 @@ public class OrderBO {
     public void handleUpdate(ClientBO clientBO,
             EnumOrderStatus enumStatus,
             List<OrderItemBO> itemsBO,
-            List<TituloBO> titulos) {
+            List<TituloBO> titulos,
+            Boolean geradoNoCaixa,
+            BigDecimal discount,
+            String observacao) {
+        this.clientBO = clientBO;
+        this.enumStatus = enumStatus;
+        this.itemsBO = itemsBO;
+        this.titulos = titulos;
+        this.geradoNoCaixa = geradoNoCaixa;
+        this.discount = discount;
+        this.observacao = observacao;
 
-        if (clientBO != null) {
-            this.clientBO = clientBO;
-        }
-
-        if (enumStatus != null) {
-            this.enumStatus = enumStatus;
-        }
-
-        if (ListUtil.isNotNullOrEmpty(itemsBO)) {
-            this.itemsBO = itemsBO;
-        }
-
-        if (ListUtil.isNotNullOrEmpty(titulos)) {
-            this.titulos = titulos;
-        }
-
-        sumTotalValue();
-
+        validate();
+        verifyInactiveEntities();
     }
 
     public List<TituloBO> getTitulos() {
         return titulos;
+    }
+
+    public Boolean getGeradoNoCaixa() {
+        return geradoNoCaixa;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public String getObservacao() {
+        return observacao;
     }
 
 }

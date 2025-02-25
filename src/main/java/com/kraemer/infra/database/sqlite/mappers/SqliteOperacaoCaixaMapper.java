@@ -14,10 +14,9 @@ public class SqliteOperacaoCaixaMapper {
         entity.setDataFechamento(bo.getDataFechamento());
         entity.setSaldoInicial(bo.getSaldoInicial());
         entity.setSaldoFinal(bo.getSaldoFinal());
-        entity.setTotalVendas(bo.getTotalVendas());
+        entity.setTotalVendas(bo.getTotalMovimentado());
         entity.setSituacao(bo.getSituacao());
         entity.setObservacoes(bo.getObservacoes());
-        entity.setUsuarioId(bo.getUsuarioId());
         
         return entity;
     }
@@ -31,10 +30,9 @@ public class SqliteOperacaoCaixaMapper {
             entity.getDataFechamento(),
             entity.getSaldoInicial(),
             entity.getSaldoFinal(),
-            entity.getTotalVendas(),
+            entity.getTotalMovimentado(),
             entity.getSituacao(),
-            entity.getObservacoes(),
-            entity.getUsuarioId()
+            entity.getObservacoes()
         );
     }
 } 

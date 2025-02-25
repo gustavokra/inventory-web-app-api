@@ -11,7 +11,8 @@ public class UserMapper {
     }
 
     public static UserBO toBO(UserDTO dto) {
-        return new UserBO(dto.getName(),
+        return new UserBO(dto.getId(),
+                dto.getName(),
                 dto.getEmail(),
                 dto.getPassword(),
                 dto.getConfirmPassword(),
@@ -21,6 +22,7 @@ public class UserMapper {
 
     public static UserDTO toDTO(UserBO bo) {
         UserDTO dto = new UserDTO();
+        dto.setId(bo.getId());
         dto.setName(bo.getName());
         dto.setEmail(bo.getEmail());
         dto.setPassword(bo.getPassword());

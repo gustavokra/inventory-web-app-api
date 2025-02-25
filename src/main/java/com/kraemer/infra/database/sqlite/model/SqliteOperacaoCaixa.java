@@ -33,16 +33,13 @@ public class SqliteOperacaoCaixa extends PanacheEntityBase {
     @Column(name = "saldo_final")
     private BigDecimal saldoFinal;
 
-    @Column(name = "total_vendas")
-    private BigDecimal totalVendas;
+    @Column(name = "total_movimentado")
+    private BigDecimal totalMovimentado;
 
     @Column(nullable = false)
     private EnumSituacaoCaixa situacao;
 
     private String observacoes;
-
-    @Column(name = "usuario_id", nullable = false)
-    private Long usuarioId;
 
 	public Long getId() {
 		return id;
@@ -84,12 +81,12 @@ public class SqliteOperacaoCaixa extends PanacheEntityBase {
 		this.saldoFinal = saldoFinal;
 	}
 
-	public BigDecimal getTotalVendas() {
-		return totalVendas;
+	public BigDecimal getTotalMovimentado() {
+		return totalMovimentado;
 	}
 
-	public void setTotalVendas(BigDecimal totalVendas) {
-		this.totalVendas = totalVendas;
+	public void setTotalVendas(BigDecimal totalMovimentado) {
+		this.totalMovimentado = totalMovimentado;
 	}
 
 	public EnumSituacaoCaixa getSituacao() {
@@ -106,14 +103,6 @@ public class SqliteOperacaoCaixa extends PanacheEntityBase {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
-	}
-
-	public Long getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(Long usuarioId) {
-		this.usuarioId = usuarioId;
 	}
 
     

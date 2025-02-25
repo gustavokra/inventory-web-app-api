@@ -21,6 +21,9 @@ public class SqliteOrderMapper {
         entity.setCreatedAt(domain.getCreatedAt().getValue());
         entity.setStatus(domain.getEnumStatus());
         entity.setTotalValue(domain.getTotalValue());
+        entity.setGeradoNoCaixa(domain.getGeradoNoCaixa());
+        entity.setDiscount(domain.getDiscount());
+        entity.setObservacao(domain.getObservacao());
 
         if (domain.getClient() != null) {
             SqliteClient managedClient = SqliteClient.findById(domain.getClient().getId());
@@ -43,7 +46,6 @@ public class SqliteOrderMapper {
             return null;
         }
 
-
         return new OrderBO(
                 entity.getId(),
                 new CreatedAtVO(entity.getCreatedAt()),
@@ -51,6 +53,9 @@ public class SqliteOrderMapper {
                 entity.getStatus(),
                 entity.getTotalValue(),
                 entity.getItems() != null ? entity.getItems().stream().map(item -> SqliteOrderItemMapper.toDomain(item, false)).toList() : null,
-                SqliteTitulo.list("pedido.id = :pedidoId", Parameters.with("pedidoId", entity.getId()).map()).stream().map(titulo -> SqliteTituloMapper.toDomain((SqliteTitulo) titulo)).toList());
+                SqliteTitulo.list("pedido.id = :pedidoId", Parameters.with("pedidoId", entity.getId()).map()).stream().map(titulo -> SqliteTituloMapper.toDomain((SqliteTitulo) titulo)).toList(),
+                entity.getGeradoNoCaixa(),
+                entity.getDiscount(),
+                entity.getObservacao());
     }
 }

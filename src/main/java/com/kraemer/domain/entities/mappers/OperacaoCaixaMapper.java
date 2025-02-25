@@ -1,7 +1,5 @@
 package com.kraemer.domain.entities.mappers;
 
-import java.time.LocalDateTime;
-
 import com.kraemer.domain.entities.dto.OperacaoCaixaDTO;
 import com.kraemer.domain.entities.OperacaoCaixaBO;
 
@@ -17,10 +15,9 @@ public class OperacaoCaixaMapper {
             dto.getDataFechamento(),
             dto.getSaldoInicial(),
             dto.getSaldoFinal(),
-            dto.getTotalVendas(),
+            dto.getTotalMovimentado(),
             dto.getSituacao(),
-            dto.getObservacoes(),
-            dto.getUsuarioId()
+            dto.getObservacoes()
         );
     }
     
@@ -33,10 +30,9 @@ public class OperacaoCaixaMapper {
         dto.setDataFechamento(bo.getDataFechamento());
         dto.setSaldoInicial(bo.getSaldoInicial());
         dto.setSaldoFinal(bo.getSaldoFinal() );
-        dto.setTotalVendas(bo.getTotalVendas());
+        dto.setTotalMovimentado(bo.getTotalMovimentado());
         dto.setSituacao(bo.getSituacao());
         dto.setObservacoes(bo.getObservacoes());
-        dto.setUsuarioId(bo.getUsuarioId());
         
         return dto;
     }

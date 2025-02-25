@@ -12,6 +12,8 @@ import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class UserBO {
 
+    Long id;
+
     String name;
 
     String email;
@@ -22,7 +24,8 @@ public class UserBO {
 
     Set<EnumRole> roles;
 
-    public UserBO(String name, String email, String password, String confirmPassword, Set<EnumRole> roles) {
+    public UserBO(Long id, String name, String email, String password, String confirmPassword, Set<EnumRole> roles) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -80,6 +83,10 @@ public class UserBO {
 
     public Set<EnumRole> getRoles() {
         return roles;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     private void validate() {

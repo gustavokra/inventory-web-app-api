@@ -37,7 +37,7 @@ public class OperacaoCaixaController {
     
     @PUT
     @RolesAllowed({ "ADMIN", "USER" })
-    public Response atualizar(OperacaoCaixaDTO dto, @PathParam("id") Long id, @HeaderParam EnumDBImpl dbImpl) {
+    public Response atualizar(OperacaoCaixaDTO dto, @HeaderParam("id") Long id, @HeaderParam EnumDBImpl dbImpl) {
         return Response.ok(service.atualizar(dto, id, dbImpl)).build();
     }
     

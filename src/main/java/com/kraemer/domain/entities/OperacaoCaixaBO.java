@@ -11,41 +11,29 @@ public class OperacaoCaixaBO {
     private LocalDateTime dataFechamento;
     private BigDecimal saldoInicial;
     private BigDecimal saldoFinal;
-    private BigDecimal totalVendas;
+    private BigDecimal totalMovimentado;
     private EnumSituacaoCaixa situacao;
     private String observacoes;
-    private Long usuarioId;
 
-    public OperacaoCaixaBO(Long id, LocalDateTime dataAbertura, LocalDateTime dataFechamento, BigDecimal saldoInicial, BigDecimal saldoFinal, BigDecimal totalVendas, EnumSituacaoCaixa situacao, String observacoes, Long usuarioId) {
+    public OperacaoCaixaBO(Long id, LocalDateTime dataAbertura, LocalDateTime dataFechamento, BigDecimal saldoInicial, BigDecimal saldoFinal, BigDecimal totalMovimentado, EnumSituacaoCaixa situacao, String observacoes) {
         this.id = id;
         this.dataAbertura = dataAbertura;
         this.dataFechamento = dataFechamento;
         this.saldoInicial = saldoInicial;
         this.saldoFinal = saldoFinal;
-        this.totalVendas = totalVendas;
+        this.totalMovimentado = totalMovimentado;
         this.situacao = situacao;
         this.observacoes = observacoes;
-        this.usuarioId = usuarioId;
 
         validate();
     }
 
     private void validate() {
-        if (id == null) {
-            throw new IllegalArgumentException("Id is required");
-        }
 
         if (dataAbertura == null) {
             throw new IllegalArgumentException("Data de abertura é obrigatória");
         }
 
-        if (dataFechamento == null) {
-            throw new IllegalArgumentException("Data de fechamento é obrigatória");
-        }
-
-        if(usuarioId == null) {
-            throw new IllegalArgumentException("Usuário é obrigatório");
-        }
 
         if(saldoInicial == null) {
             throw new IllegalArgumentException("Saldo inicial é obrigatório");
@@ -54,17 +42,21 @@ public class OperacaoCaixaBO {
     }
 
 
-    public void handleUpdate(LocalDateTime dataFechamento, BigDecimal saldoFinal, BigDecimal totalVendas, EnumSituacaoCaixa situacao, String observacoes, Long usuarioId) {
+    public void handleUpdate(LocalDateTime dataFechamento, BigDecimal saldoInicial, BigDecimal saldoFinal, BigDecimal totalMovimentado, EnumSituacaoCaixa situacao, String observacoes) {
         if (dataFechamento != null) {
             this.dataFechamento = dataFechamento;
+        }
+
+        if(saldoInicial != null) {
+            this.saldoInicial = saldoInicial;
         }
 
         if (saldoFinal != null) {
             this.saldoFinal = saldoFinal;
         }
 
-        if (totalVendas != null) {
-            this.totalVendas = totalVendas;
+        if (totalMovimentado != null) {
+            this.totalMovimentado = totalMovimentado;
         }
 
         if (situacao != null) {
@@ -75,9 +67,6 @@ public class OperacaoCaixaBO {
             this.observacoes = observacoes;
         }
 
-        if (usuarioId != null) {
-            this.usuarioId = usuarioId;
-        }
     }       
     
     public Long getId() {
@@ -101,8 +90,8 @@ public class OperacaoCaixaBO {
         return saldoFinal;
     }
 
-    public BigDecimal getTotalVendas() {
-        return totalVendas;
+    public BigDecimal getTotalMovimentado() {
+        return totalMovimentado;
     }
 
     public EnumSituacaoCaixa getSituacao() {
@@ -111,10 +100,6 @@ public class OperacaoCaixaBO {
 
     public String getObservacoes() {
         return observacoes;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
     }
 
 } 

@@ -33,11 +33,13 @@ public class AuthService extends AbstractService {
         if (!userLoged.getRoles().contains(EnumRole.ADMIN)) {
             tokenDTO.setToken(jwtService.generateUserJwt());
             tokenDTO.setAdmin(false);
+            tokenDTO.setUserId(userLoged.getId());
             return tokenDTO;
         }
 
         tokenDTO.setToken(jwtService.generateAdminJwt());
         tokenDTO.setAdmin(true);
+        tokenDTO.setUserId(userLoged.getId());
 
         return tokenDTO;
     }

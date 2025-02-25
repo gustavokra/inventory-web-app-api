@@ -34,7 +34,10 @@ public class UpdateOrder {
                 dto.getClient() != null ? ClientMapper.toBO(dto.getClient()) : null,
                 dto.getEnumStatus(),
                 dto.getItems() != null ? dto.getItems().stream().map(OrderItemMapper::toBO).toList() : null,
-                dto.getTitulos() != null ? dto.getTitulos().stream().map(TituloMapper::toBO).toList() : null);
+                dto.getTitulos() != null ? dto.getTitulos().stream().map(TituloMapper::toBO).toList() : null,
+                dto.getGeradoNoCaixa(),
+                dto.getDiscount(),
+                dto.getObservacao());
 
         var orderUpdated = repository.merge(existingOrder);
 

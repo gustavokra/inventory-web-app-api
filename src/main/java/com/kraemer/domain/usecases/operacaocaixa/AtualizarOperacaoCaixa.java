@@ -53,11 +53,11 @@ public class AtualizarOperacaoCaixa {
             OperacaoCaixaDTO operacaoCaixaDTO) {
         operacaoExistente.handleUpdate(
                 operacaoCaixaDTO.getDataFechamento(),
+                operacaoCaixaDTO.getSaldoInicial(),
                 operacaoCaixaDTO.getSaldoFinal(),
-                operacaoCaixaDTO.getTotalVendas(),
+                operacaoCaixaDTO.getTotalMovimentado(),
                 operacaoCaixaDTO.getSituacao(),
-                operacaoCaixaDTO.getObservacoes(),
-                operacaoCaixaDTO.getUsuarioId());
+                operacaoCaixaDTO.getObservacoes());
 
         var operacaoAtualizada = operacaoCaixaRepository.atualizar(operacaoExistente);
 

@@ -22,6 +22,12 @@ public class OrderDTO {
 
     private List<TituloDTO> titulos;
 
+    private Boolean geradoNoCaixa;
+
+    private BigDecimal discount;
+
+    private String observacao;
+
     public Long getId() {
         return id;
     }
@@ -76,6 +82,30 @@ public class OrderDTO {
 
     public void setTitulos(List<TituloDTO> titulos) {
         this.titulos = titulos;
+    }
+
+    public Boolean getGeradoNoCaixa() {
+        return geradoNoCaixa;
+    }
+
+    public void setGeradoNoCaixa(Boolean geradoNoCaixa) {
+        this.geradoNoCaixa = geradoNoCaixa;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
 }

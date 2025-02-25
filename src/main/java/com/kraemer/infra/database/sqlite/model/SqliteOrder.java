@@ -44,6 +44,15 @@ public class SqliteOrder extends PanacheEntityBase {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SqliteOrderItem> items = new ArrayList<>();
 
+    @Column(nullable = true)
+    private Boolean geradoNoCaixa;
+
+    @Column(precision = 2, nullable = true)
+    private BigDecimal discount;
+
+    @Column(nullable = true)
+    private String observacao;
+
     public Long getId() {
         return id;
     }
@@ -90,6 +99,30 @@ public class SqliteOrder extends PanacheEntityBase {
 
     public void setItems(List<SqliteOrderItem> items) {
         this.items = items;
+    }
+
+    public Boolean getGeradoNoCaixa() {
+        return geradoNoCaixa;
+    }
+
+    public void setGeradoNoCaixa(Boolean geradoNoCaixa) {
+        this.geradoNoCaixa = geradoNoCaixa;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
 }

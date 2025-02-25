@@ -6,7 +6,8 @@ import com.kraemer.infra.database.sqlite.model.SqliteUser;
 public class SqliteUserMapper {
     
     public static UserBO toDomain(SqliteUser entity) {
-        return new UserBO(entity.getName(),
+        return new UserBO(entity.getId(),
+        entity.getName(),
         entity.getEmail(),
         entity.getPassword(),
         null,
