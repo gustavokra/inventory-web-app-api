@@ -34,6 +34,7 @@ public class UpdateProduct {
         existingProduct.handleUpdate(
                 dto.getName(),
                 dto.getDescription(),
+                dto.getCostPrice(),
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),

@@ -2,11 +2,13 @@ package com.kraemer.service;
 
 import java.util.List;
 
+import com.kraemer.domain.entities.dto.ModeloImportacaoProdutosDTO;
 import com.kraemer.domain.entities.dto.ProductDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.domain.usecases.product.CreateProduct;
 import com.kraemer.domain.usecases.product.DeleteProduct;
 import com.kraemer.domain.usecases.product.FindAllProducts;
+import com.kraemer.domain.usecases.product.ImportarProdutos;
 import com.kraemer.domain.usecases.product.UpdateProduct;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -48,6 +50,16 @@ public class ProductService extends AbstractService {
         var deleteProduct = new DeleteProduct(repository);
 
         deleteProduct.execute(id);
+    }
+
+    @Transactional
+    public void importar(List<ModeloImportacaoProdutosDTO> dtos, EnumDBImpl dbImpl) {
+        var productRepository = dbFactory.getProductRepositoryImpl(dbImpl);
+        var grupoRepository = dbFactory.getGrupoRepositoryImpl(dbImpl);
+
+        var importarProdutos = new ImportarProdutos(productRepository, grupoRepository);
+
+        importarProdutos.execute(dtos);
     }
     
 }

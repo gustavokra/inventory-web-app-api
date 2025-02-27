@@ -16,6 +16,7 @@ public class ProductMapper {
                 dto.getDescription(),
                 dto.getMarca() != null ? MarcaMapper.toBO(dto.getMarca()) : null,
                 dto.getGrupo() != null ? GrupoMapper.toBO(dto.getGrupo()) : null,
+                dto.getCostPrice(),
                 dto.getPrice(),
                 dto.getQuantity(),
                 dto.getImage(),
@@ -34,6 +35,7 @@ public class ProductMapper {
         dto.setDescription(bo.getDescription());
         dto.setMarca(bo.getMarcaBO() != null ? MarcaMapper.toDTO(bo.getMarcaBO()) : null);
         dto.setGrupo(bo.getGrupoBO() != null ? GrupoMapper.toDTO(bo.getGrupoBO()) : null);
+        dto.setCostPrice(bo.getCostPrice());
         dto.setPrice(bo.getPrice());
         dto.setQuantity(bo.getQuantity());
         dto.setImage(bo.getImage());

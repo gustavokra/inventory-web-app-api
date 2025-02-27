@@ -21,22 +21,28 @@ public class CreateSupplier {
     public SupplierDTO execute(SupplierDTO dto) {
         var bo = SupplierMapper.toBO(dto);
 
-        verifyExisting(bo.getDocument());
+        verifyExisting(bo.getDocument(), bo.getName());
 
         var createdSupplier = repository.create(bo);
 
         return SupplierMapper.toDTO(createdSupplier);
     }
 
-    private void verifyExisting(String document) {
+    private void verifyExisting(String document, String name) {
         if (StringUtil.isNotNullOrEmpty(document)) {
-            QueryFieldInfoVO documentField = new QueryFieldInfoVO("document", document);
-            var existingSupplierBO = repository.findFirstBy(List.of(documentField));
+            checkExistingSupplier("document", document, "documento " + document);
+        }
+        if (StringUtil.isNotNullOrEmpty(name)) {
+            checkExistingSupplier("name", name, "nome " + name);
+        }
+    }
 
-            if (existingSupplierBO != null) {
-                throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA,
-                        "Fornecedor com documento " + document);
-            }
+    private void checkExistingSupplier(String fieldName, String fieldValue, String errorMessage) {
+        QueryFieldInfoVO field = new QueryFieldInfoVO(fieldName, fieldValue);
+        var existingSupplierBO = repository.findFirstBy(List.of(field));
+
+        if (existingSupplierBO != null) {
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Fornecedor com " + errorMessage);
         }
     }
 }

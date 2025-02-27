@@ -8,7 +8,6 @@ import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.enums.EnumOrderStatus;
 import com.kraemer.domain.entities.vo.CreatedAtVO;
 import com.kraemer.domain.utils.ListUtil;
-import com.kraemer.domain.utils.NumericUtil;
 import com.kraemer.domain.utils.exception.InventoryAppException;
 
 public class OrderBO {

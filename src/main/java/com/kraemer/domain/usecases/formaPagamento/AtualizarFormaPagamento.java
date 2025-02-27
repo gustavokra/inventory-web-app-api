@@ -23,11 +23,9 @@ public class AtualizarFormaPagamento {
 
     public FormaPagamentoDTO execute(FormaPagamentoDTO dto, Long id) {
         var formaPagamentoAtualizar = verifyExistingFormaPagamento(id);
+        verifyDuplicateName(dto.getNome(), id);
 
-        formaPagamentoAtualizar.verificarAtualizacao(
-                dto.getNome(),
-                dto.getnumeroMaxParcelas());
-
+        formaPagamentoAtualizar.verificarAtualizacao(dto.getNome(), dto.getnumeroMaxParcelas());
         repository.atualizar(formaPagamentoAtualizar);
 
         return FormaPagamentoMapper.toDTO(formaPagamentoAtualizar);
@@ -35,9 +33,7 @@ public class AtualizarFormaPagamento {
 
     private FormaPagamentoBO verifyExistingFormaPagamento(Long id) {
         verifyId(id);
-
         var idField = new QueryFieldInfoVO("id", String.valueOf(id));
-
         var formaPagamentoBO = repository.encontrarPrimeiroPor(List.of(idField));
 
         if (formaPagamentoBO == null) {
@@ -48,11 +44,17 @@ public class AtualizarFormaPagamento {
     }
 
     private void verifyId(Long id) {
-
         if (id == null) {
             throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "id");
         }
-
     }
 
+    private void verifyDuplicateName(String nome, Long id) {
+        var nomeField = new QueryFieldInfoVO("nome", nome);
+        var existingFormaPagamento = repository.encontrarPrimeiroPor(List.of(nomeField));
+
+        if (existingFormaPagamento != null && !existingFormaPagamento.getId().equals(id)) {
+            throw new InventoryAppException(EnumErrorCode.ENTIDADE_CADASTRADA, "Forma de Pagamento com nome '" + nome + "'");
+        }
+    }
 }

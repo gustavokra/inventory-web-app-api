@@ -29,7 +29,9 @@ public class ProductBO {
 
     private Boolean active;
 
-    public ProductBO(Long id, String name, String description, MarcaBO marca, GrupoBO grupo, BigDecimal price, Integer quantity, String image,
+    private BigDecimal costPrice;
+
+    public ProductBO(Long id, String name, String description, MarcaBO marca, GrupoBO grupo, BigDecimal costPrice, BigDecimal price, Integer quantity, String image,
             SupplierBO supplier, Boolean active) {
         this.id = id;
         this.name = name;
@@ -37,6 +39,7 @@ public class ProductBO {
         this.marca = marca;
         this.grupo = grupo;
         this.price = price;
+        this.costPrice = costPrice;
         this.quantity = quantity;
         this.image = image;
         this.supplier = supplier;
@@ -55,6 +58,10 @@ public class ProductBO {
 
     public String getDescription() {
         return description;
+    }
+
+    public BigDecimal getCostPrice() {
+        return costPrice;
     }
 
     public BigDecimal getPrice() {
@@ -97,7 +104,7 @@ public class ProductBO {
 
     }
 
-    public void handleUpdate(String name, String description, BigDecimal price, Integer quantity, String image, SupplierBO supplier,
+    public void handleUpdate(String name, String description, BigDecimal costPrice, BigDecimal price, Integer quantity, String image, SupplierBO supplier,
             Boolean active) {
         if (StringUtil.isNotNullOrEmpty(name)) {
             this.name = name;
@@ -112,6 +119,10 @@ public class ProductBO {
         //         throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "preço");
         //     }
         // }
+
+        if (!NumericUtil.isNullOrZero(costPrice)) {
+                this.costPrice = costPrice;
+        }
 
         if (!NumericUtil.isNullOrZero(quantity)) {
             if (!NumericUtil.isLessOrEqualsZero(price)) {

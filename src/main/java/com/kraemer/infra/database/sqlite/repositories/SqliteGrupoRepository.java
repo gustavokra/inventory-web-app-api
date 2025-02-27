@@ -20,6 +20,12 @@ public class SqliteGrupoRepository implements IGrupoRepository {
     public GrupoBO create(GrupoBO bo) {
         var entity = SqliteGrupoMapper.toEntity(bo);
 
+        SqliteGrupo grupoJaExiste = SqliteGrupo.find("nome", bo.getNome()).firstResult();
+
+        if(grupoJaExiste != null) {
+            return SqliteGrupoMapper.toDomain(grupoJaExiste);
+        }
+
         entity.persist();
 
         return SqliteGrupoMapper.toDomain(entity);

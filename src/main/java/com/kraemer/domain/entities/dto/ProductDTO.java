@@ -14,6 +14,8 @@ public class ProductDTO {
 
     private GrupoDTO grupo;
 
+    private BigDecimal costPrice;
+
     private BigDecimal price;
 
     private Integer quantity;
@@ -102,6 +104,14 @@ public class ProductDTO {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
     }
 
 }

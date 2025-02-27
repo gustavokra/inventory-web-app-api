@@ -1,12 +1,10 @@
 package com.kraemer.presentation.controllers;
 
-import java.util.List;
+import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
 import com.kraemer.domain.entities.dto.OperacaoCaixaDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.service.OperacaoCaixaService;
-
-import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

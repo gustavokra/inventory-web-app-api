@@ -3,14 +3,11 @@ package com.kraemer.service;
 import java.util.List;
 
 import com.kraemer.domain.entities.dto.OperacaoCaixaDTO;
-import com.kraemer.domain.entities.OperacaoCaixaBO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
-import com.kraemer.domain.entities.mappers.OperacaoCaixaMapper;
 import com.kraemer.domain.usecases.operacaocaixa.AtualizarOperacaoCaixa;
 import com.kraemer.domain.usecases.operacaocaixa.CriarOperacaoCaixa;
 import com.kraemer.domain.usecases.operacaocaixa.EncontrarTodasOperacoesCaixa;
 import com.kraemer.domain.usecases.operacaocaixa.ExcluirOperacaoCaixa;
-import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;

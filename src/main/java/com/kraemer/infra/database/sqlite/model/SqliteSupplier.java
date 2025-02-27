@@ -15,10 +15,10 @@ public class SqliteSupplier extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(nullable = false, length = 18)
+    @Column(nullable = false, length = 18,  unique = true)
     private String document;
 
     @Column(nullable = false, length = 50)

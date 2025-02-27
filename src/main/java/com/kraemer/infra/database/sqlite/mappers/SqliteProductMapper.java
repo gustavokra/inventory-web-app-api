@@ -15,6 +15,7 @@ public class SqliteProductMapper {
         entity.setDescription(domain.getDescription());
         entity.setMarca(domain.getMarcaBO() != null ? SqliteMarcaMapper.toEntity(domain.getMarcaBO()) : null);
         entity.setGrupo(domain.getGrupoBO() != null ? SqliteGrupoMapper.toEntity(domain.getGrupoBO()) : null);
+        entity.setCostPrice(domain.getCostPrice());
         entity.setPrice(domain.getPrice());
         entity.setQuantity(domain.getQuantity());
         entity.setImage(domain.getImage());
@@ -39,6 +40,7 @@ public class SqliteProductMapper {
             entity.getDescription(),
             entity.getMarca() != null ? SqliteMarcaMapper.toDomain(entity.getMarca()) : null,
             entity.getGrupo() != null ? SqliteGrupoMapper.toDomain(entity.getGrupo()) : null,
+            entity.getCostPrice(),
             entity.getPrice(),
             entity.getQuantity(),
             entity.getImage(),

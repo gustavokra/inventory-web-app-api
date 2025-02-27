@@ -2,11 +2,10 @@ package com.kraemer.domain.usecases.operacaocaixa;
 
 import java.util.List;
 
-import com.kraemer.domain.entities.OperacaoCaixaBO;
 import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IOperacaoCaixaRepository;
-import com.kraemer.domain.vo.QueryFieldInfoVO;
 import com.kraemer.domain.utils.exception.InventoryAppException;
+import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class ExcluirOperacaoCaixa {
     private static final String ENTIDADE_NOME = "OperacaoCaixa";

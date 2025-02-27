@@ -36,6 +36,9 @@ public class SqliteProduct extends PanacheEntityBase {
     private SqliteGrupo grupo;
 
     @Column(scale = 2)
+    private BigDecimal costPrice;
+
+    @Column(scale = 2)
     private BigDecimal price;
 
     @Column(scale = 0)
@@ -129,4 +132,11 @@ public class SqliteProduct extends PanacheEntityBase {
         this.grupo = grupo;
     }
 
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
+    }
 }

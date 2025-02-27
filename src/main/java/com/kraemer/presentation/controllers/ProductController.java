@@ -1,7 +1,10 @@
 package com.kraemer.presentation.controllers;
 
+import java.util.List;
+
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
+import com.kraemer.domain.entities.dto.ModeloImportacaoProdutosDTO;
 import com.kraemer.domain.entities.dto.ProductDTO;
 import com.kraemer.domain.entities.enums.EnumDBImpl;
 import com.kraemer.service.ProductService;
@@ -35,8 +38,6 @@ public class ProductController {
 
     @POST
     @RolesAllowed({ "ADMIN" })
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response create(ProductDTO dto, @HeaderParam EnumDBImpl dbImpl) {
         var createdProduct = service.create(dto, dbImpl);
 
@@ -65,4 +66,21 @@ public class ProductController {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/import")
+    @RolesAllowed({ "ADMIN" })
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response importar(List<ModeloImportacaoProdutosDTO> data, @HeaderParam EnumDBImpl dbImpl) {
+        try {
+            service.importar(data, dbImpl);
+
+            return Response.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                           .entity("Erro ao processar os dados do arquivo XLSX.")
+                           .build();
+        }
+    }
 }
+
