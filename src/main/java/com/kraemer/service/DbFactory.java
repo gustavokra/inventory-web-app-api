@@ -77,7 +77,6 @@ public class DbFactory {
 
     @PostConstruct
     public void init() {
-        System.out.println(userRepositoryImplementations);
         
         for (IUserRepository impl : userRepositoryImplementations) {
             userRepositoryServiceCache.put(impl.getType(), impl);
