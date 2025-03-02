@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.StreamingOutput;
 @Path("api/v1/backup")
 public class BackupController {
 
-    private static final String BACKUP_FILE_PATH = "/home/gustavo/Documentos/projetos/inventory-web-app-api/data/database";
+    private static final String BACKUP_FILE_PATH = "/home/gustavo_kraemer6/inventory-web-app-api/data";
 
     @GET
     @Produces("application/sql")
@@ -24,7 +24,7 @@ public class BackupController {
         File backupFile = new File(BACKUP_FILE_PATH);
 
         if (!backupFile.exists()) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Backup file not found").build();
+            
         }
 
         StreamingOutput fileStream = new StreamingOutput() {
