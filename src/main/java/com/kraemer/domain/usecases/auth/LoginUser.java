@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.kraemer.domain.entities.UserBO;
 import com.kraemer.domain.entities.dto.UserCredentialsDTO;
+import com.kraemer.domain.entities.enums.EnumErrorCode;
 import com.kraemer.domain.entities.repositories.IUserRepository;
 import com.kraemer.domain.utils.PasswordUtils;
+import com.kraemer.domain.utils.exception.InventoryAppException;
 import com.kraemer.domain.vo.QueryFieldInfoVO;
 
 public class LoginUser {
-    
+
     private IUserRepository repository;
 
     public LoginUser(IUserRepository repository) {
@@ -18,19 +20,26 @@ public class LoginUser {
 
     public UserBO execute(UserCredentialsDTO credentials) {
         QueryFieldInfoVO fieldName = new QueryFieldInfoVO("name", credentials.getEmail());
-        QueryFieldInfoVO fieldPassword = new QueryFieldInfoVO("password", PasswordUtils.encryptPassword(credentials.getPassword()));
+        QueryFieldInfoVO fieldPassword = new QueryFieldInfoVO("password",
+                PasswordUtils.encryptPassword(credentials.getPassword()));
         var user = repository.findFirstBy(List.of(fieldName, fieldPassword));
-        
-        if(user == null) {
-            findByEmail(credentials, fieldPassword);
+
+        if (user == null) {
+            user = findByEmail(credentials, fieldPassword);
         }
 
-        return  user != null ? user : null;
+        return user;
     }
 
     private UserBO findByEmail(UserCredentialsDTO credentials, QueryFieldInfoVO fieldPassword) {
         QueryFieldInfoVO fieldEmail = new QueryFieldInfoVO("email", credentials.getEmail());
-        return repository.findFirstBy(List.of(fieldEmail, fieldPassword));
+        var user = repository.findFirstBy(List.of(fieldEmail, fieldPassword));
+
+        if (user == null) {
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "Usuário ou senha inválidos");
+        }
+
+        return user;
     }
 
 }

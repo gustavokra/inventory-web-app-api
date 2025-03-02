@@ -24,7 +24,7 @@ public class AuthService extends AbstractService {
         var loginUser = new LoginUser(repository);
         var userLoged = loginUser.execute(credentials);
 
-        return userLoged != null ? generateToken(userLoged) : null;
+        return  generateToken(userLoged);
     }
 
     private TokenDTO generateToken(UserBO userLoged) {

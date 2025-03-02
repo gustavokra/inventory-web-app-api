@@ -4,6 +4,7 @@ package com.kraemer.usecases.user;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
@@ -45,9 +46,7 @@ public class AuthLoginTest {
 
         when(repository.findFirstBy(anyList())).thenReturn(null);
 
-        var token = loginUser.execute(userCredentials);
-
-        assertNull(token);
+        assertThrows(Exception.class, () -> loginUser.execute(userCredentials));
     }
 
 }
