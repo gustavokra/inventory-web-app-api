@@ -14,7 +14,6 @@ public class OperacaoCaixaDTO {
 	private BigDecimal totalMovimentado;
 	private EnumSituacaoCaixa situacao;
 	private String observacoes;
-	private Long usuarioId;
 
 	public Long getId() {
 		return id;
@@ -78,14 +77,6 @@ public class OperacaoCaixaDTO {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
-	}
-
-	public Long getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(Long usuarioId) {
-		this.usuarioId = usuarioId;
 	}
 
 }

@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.kraemer.domain.entities.enums.EnumErrorCode;
+import com.kraemer.domain.utils.exception.InventoryAppException;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -15,7 +18,7 @@ import jakarta.ws.rs.core.StreamingOutput;
 @Path("api/v1/backup")
 public class BackupController {
 
-    private static final String BACKUP_FILE_PATH = "/home/gustavo_kraemer6/inventory-web-app-api/data";
+    private static final String BACKUP_FILE_PATH = "/home/gustavo/Documentos/projetos/inventory-web-app-api/data/database";
 
     @GET
     @Produces("application/sql")
@@ -24,7 +27,7 @@ public class BackupController {
         File backupFile = new File(BACKUP_FILE_PATH);
 
         if (!backupFile.exists()) {
-            
+            throw new InventoryAppException(EnumErrorCode.CAMPO_INVALIDO, "O arquivo de backup não foi encontrado.");
         }
 
         StreamingOutput fileStream = new StreamingOutput() {
