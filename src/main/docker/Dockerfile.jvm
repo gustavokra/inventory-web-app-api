@@ -94,7 +94,7 @@ COPY --chown=185 --from=builder /app/target/quarkus-app/app/ /deployments/app/
 COPY --chown=185 --from=builder /app/target/quarkus-app/quarkus/ /deployments/quarkus/
 COPY --chown=185 jwt/ /jwt/
 COPY --chown=185 data/ /data/
-COPY --chown=185 keystore.jks /keystore.jks
+# COPY --chown=185 keystore.jks /keystore.jks
 EXPOSE 8443
 USER 185
 ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
