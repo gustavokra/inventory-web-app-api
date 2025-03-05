@@ -1,5 +1,8 @@
+# Ignorar tudo por padrão (opcional, mas deixa mais claro)
 *
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+
+# Incluir explicitamente o que o Dockerfile precisa
+!target/quarkus-app/
+!jwt/
+!data/
+!keystore.jks
