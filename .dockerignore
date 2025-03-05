@@ -1,8 +1,8 @@
-# Ignorar tudo por padrão (opcional, mas deixa mais claro)
 *
-
-# Incluir explicitamente o que o Dockerfile precisa
-!target/quarkus-app/
+!src/
+!pom.xml
+!mvnw
+!.mvn/
 !jwt/
 !data/
 !keystore.jks
