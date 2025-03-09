@@ -12,7 +12,9 @@ public class BackupService {
     // private static final String BACKUP_FILE_PATH = "/home/gustavo/Documentos/projetos/inventory-web-app-api/data/database";;
 
     public StreamingOutput baixarBackup() {
+
         var BaixarBackup = new BaixarBackup(BACKUP_FILE_PATH);
         return BaixarBackup.execute();
+        
     }
 }
