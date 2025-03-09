@@ -79,7 +79,6 @@
 
 ###
 # Etapa de build com Maven
-# Etapa de build com Maven
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 COPY pom.xml .
@@ -95,7 +94,7 @@ COPY --chown=185 --from=builder /app/target/quarkus-app/quarkus/ /deployments/qu
 COPY --chown=185 jwt/ /jwt/
 COPY --chown=185 data/ /data/
 # COPY --chown=185 keystore.jks /keystore.jks
-EXPOSE 8443
+EXPOSE 8080 5005
 USER 185
 ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
