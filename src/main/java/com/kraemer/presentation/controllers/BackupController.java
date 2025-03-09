@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.StreamingOutput;
 @Path("api/v1/backup")
 public class BackupController {
 
-    private static final String BACKUP_FILE_PATH = "/home/gustavo/Documentos/projetos/inventory-web-app-api/data/database";
+    private static final String BACKUP_FILE_PATH = "/data/database";
 
     @GET
     @Produces("application/sql")
