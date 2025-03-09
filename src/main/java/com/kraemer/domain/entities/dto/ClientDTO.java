@@ -12,6 +12,8 @@ public class ClientDTO {
 
     private String address;
 
+    private Long idLoja;
+
     private Boolean active;
 
     public Long getId() {
@@ -52,6 +54,14 @@ public class ClientDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getIdLoja() {
+        return idLoja;
+    }
+
+    public void setIdLoja(Long idLoja) {
+        this.idLoja = idLoja;
     }
 
     public Boolean isActive() {

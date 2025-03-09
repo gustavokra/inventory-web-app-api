@@ -16,6 +16,8 @@ public class UserDTO {
 
     private String confirmPassword;
 
+    private Long idLoja;
+
     private Set<EnumRole> roles;
 
     public Long getId() {
@@ -56,6 +58,14 @@ public class UserDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public Long getIdLoja() {
+        return idLoja;
+    }
+
+    public void setIdLoja(Long idLoja) {
+        this.idLoja = idLoja;
     }
 
     public Set<EnumRole> getRoles() {

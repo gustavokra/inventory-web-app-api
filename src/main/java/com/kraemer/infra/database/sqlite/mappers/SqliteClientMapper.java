@@ -12,6 +12,7 @@ public class SqliteClientMapper {
         entity.setDocument(domain.getDocument());
         entity.setContact(domain.getContact());
         entity.setAddress(domain.getAddress());
+        entity.setId(domain.getIdLoja());
         entity.setActive(domain.isActive());
 
         return entity;
@@ -25,6 +26,7 @@ public class SqliteClientMapper {
                 entity.getDocument(),
                 entity.getContact(),
                 entity.getAddress(),
+                entity.getIdLoja(),
                 entity.isActive());
     }
 }

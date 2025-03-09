@@ -16,6 +16,7 @@ public class UserMapper {
                 dto.getEmail(),
                 dto.getPassword(),
                 dto.getConfirmPassword(),
+                dto.getIdLoja(),
                 dto.getRoles()
                 );
     }
@@ -27,6 +28,7 @@ public class UserMapper {
         dto.setEmail(bo.getEmail());
         dto.setPassword(bo.getPassword());
         dto.setConfirmPassword(bo.getConfirmPassword());
+        dto.setIdLoja(bo.getIdLoja());
         return dto;
     }
 

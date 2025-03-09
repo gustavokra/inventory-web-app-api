@@ -16,6 +16,7 @@ public class ClientMapper {
                 dto.getDocument(),
                 dto.getContact(),
                 dto.getAddress(),
+                dto.getIdLoja(),
                 dto.isActive());
     }
 
@@ -26,6 +27,7 @@ public class ClientMapper {
         dto.setDocument(bo.getDocument());
         dto.setContact(bo.getContact());
         dto.setAddress(bo.getAddress());
+        dto.setIdLoja(bo.getIdLoja());
         dto.setActive(bo.isActive());
 
         return dto;

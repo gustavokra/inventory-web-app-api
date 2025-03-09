@@ -39,6 +39,9 @@ public class SqliteUser extends PanacheEntityBase {
     )
     private Set<SqliteRole> roles;
 
+    @Column(name = "id_loja")
+    private Long idLoja;
+
     public Long getId() {
         return id;
     }
@@ -79,4 +82,11 @@ public class SqliteUser extends PanacheEntityBase {
         this.roles = roles;
     }
 
+    public Long getIdLoja() {
+        return idLoja;
+    }
+
+    public void setIdLoja(Long idLoja) {
+        this.idLoja = idLoja;
+    }
 }

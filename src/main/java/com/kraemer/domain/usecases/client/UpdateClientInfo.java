@@ -40,6 +40,7 @@ public class UpdateClientInfo {
                 dto.getDocument(),
                 dto.getContact(),
                 dto.getAddress(),
+                dto.getIdLoja(),
                 dto.isActive());
 
         return ClientMapper.toDTO(repository.merge(existingClientBO));

@@ -23,13 +23,16 @@ public class UserBO {
     String confirmPassword;
 
     Set<EnumRole> roles;
+    
+    private Long idLoja;
 
-    public UserBO(Long id, String name, String email, String password, String confirmPassword, Set<EnumRole> roles) {
+    public UserBO(Long id, String name, String email, String password, String confirmPassword,  Long idLoja, Set<EnumRole> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.idLoja = idLoja;
         this.roles = roles;
         validate();
     }
@@ -83,6 +86,10 @@ public class UserBO {
 
     public Set<EnumRole> getRoles() {
         return roles;
+    }
+
+    public Long getIdLoja() {
+        return idLoja;
     }
 
     public Long getId() {

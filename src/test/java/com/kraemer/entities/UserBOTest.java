@@ -15,26 +15,26 @@ public class UserBOTest {
         void testValidate() {
                 Assertions.assertThrows(
                                 InventoryAppException.class,
-                                () -> new UserBO(0L,null, "test", "test", "test", Set.of(EnumRole.parseByKey("admin"))));
+                                () -> new UserBO(0L,null, "test", "test", "test", 1l, Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertThrows(
                                 InventoryAppException.class,
-                                () -> new UserBO(0L, "test", null, "test", "test", Set.of(EnumRole.parseByKey("admin"))));
-
+                                () -> new UserBO(0L, "test", null, "test", "test", 1l, Set.of(EnumRole.parseByKey("admin"))));
+ 
                 Assertions.assertThrows(
                                 InventoryAppException.class,
-                                () -> new UserBO(0L, "test", "test", null, "test", Set.of(EnumRole.parseByKey("admin"))));
+                                () -> new UserBO(0L, "test", "test", null, "test", 1l, Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertDoesNotThrow(
-                                () -> new UserBO(0L, "test", "test", "test", null, Set.of(EnumRole.parseByKey("admin"))));
+                                () -> new UserBO(0L, "test", "test", "test", null, 1l, Set.of(EnumRole.parseByKey("admin"))));
 
                 Assertions.assertDoesNotThrow(
-                                () -> new UserBO(0L, "test", "test", "test", "test", Set.of(EnumRole.parseByKey("admin"))));
+                                () -> new UserBO(0L, "test", "test", "test", "test", 1l, Set.of(EnumRole.parseByKey("admin"))));
         }
 
         @Test
         void testValidValidateEmail() {
-                UserBO userValidEmail =new UserBO(0L, "test", "valid@email.com", "test", "test",
+                UserBO userValidEmail =new UserBO(0L, "test", "valid@email.com", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertDoesNotThrow(
                                 () -> userValidEmail.validateEmail());
@@ -42,25 +42,25 @@ public class UserBOTest {
 
         @Test
         void testInvalidValidateEmail() {
-                UserBO userInvalidEmail =new UserBO(0L, "test", "invalidEmail", "test", "test",
+                UserBO userInvalidEmail =new UserBO(0L, "test", "invalidEmail", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
                                 InventoryAppException.class,
                                 () -> userInvalidEmail.validateEmail());
 
-                UserBO userInvalidEmail2 =new UserBO(0L, "test", "invalid@email", "test", "test",
+                UserBO userInvalidEmail2 =new UserBO(0L, "test", "invalid@email", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
                                 InventoryAppException.class,
                                 () -> userInvalidEmail2.validateEmail());
 
-                UserBO userInvalidEmail3 =new UserBO(0L, "test", "invalid.com", "test", "test",
+                UserBO userInvalidEmail3 =new UserBO(0L, "test", "invalid.com", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
                                 InventoryAppException.class,
                                 () -> userInvalidEmail3.validateEmail());
 
-                UserBO userInvalidEmail4 =new UserBO(0L, "test", "@email.com", "test", "test",
+                UserBO userInvalidEmail4 =new UserBO(0L, "test", "@email.com", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(
                                 InventoryAppException.class,
@@ -69,19 +69,19 @@ public class UserBOTest {
 
         @Test
         void testValidValidatePassword() {
-                UserBO userValidPassword =new UserBO(0L, "test", "test", "test", "test",
+                UserBO userValidPassword =new UserBO(0L, "test", "test", "test", "test", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertDoesNotThrow(() -> userValidPassword);
         }
 
         @Test
         void testInvalidValidatePassword() {
-                UserBO userInvalidPassword =new UserBO(0L, "test", "test", "test", null,
+                UserBO userInvalidPassword =new UserBO(0L, "test", "test", "test", null, 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(InventoryAppException.class,
                                 () -> userInvalidPassword.validatePassword());
 
-                UserBO userInvalidPassword2 =new UserBO(0L, "test", "test", "test", "invalid",
+                UserBO userInvalidPassword2 =new UserBO(0L, "test", "test", "test", "invalid", 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 Assertions.assertThrows(InventoryAppException.class,
                                 () -> userInvalidPassword2.validatePassword());
@@ -90,7 +90,7 @@ public class UserBOTest {
         @Test
         void testEncriptPassword() {
                 var passwordBeforeEncript = "beforeEncript";
-                UserBO user =new UserBO(0L, "test", "test", passwordBeforeEncript, passwordBeforeEncript,
+                UserBO user =new UserBO(0L, "test", "test", passwordBeforeEncript, passwordBeforeEncript, 1l,
                                 Set.of(EnumRole.parseByKey("admin")));
                 user.encriptPassword();
                 Assertions.assertEquals(
