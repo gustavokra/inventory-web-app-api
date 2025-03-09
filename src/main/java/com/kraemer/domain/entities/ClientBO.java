@@ -66,9 +66,9 @@ public class ClientBO {
 
     private void validate() {
 
-        if(NumericUtil.isNullOrZero(this.idLoja)) {
-            throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "idLoja");
-        }
+        // if(NumericUtil.isNullOrZero(this.idLoja)) {
+        //     throw new InventoryAppException(EnumErrorCode.CAMPO_OBRIGATORIO, "idLoja");
+        // }
 
         validateDocument();
 
