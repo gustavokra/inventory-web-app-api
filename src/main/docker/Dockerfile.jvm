@@ -93,11 +93,12 @@ COPY --chown=185 --from=builder /app/target/quarkus-app/app/ /deployments/app/
 COPY --chown=185 --from=builder /app/target/quarkus-app/quarkus/ /deployments/quarkus/
 COPY --chown=185 jwt/ /jwt/
 COPY --chown=185 data/ /data/
+# COPY --chown=185 keystore.jks /keystore.jks
 EXPOSE 8080 5005
 USER 185
 ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 ENV MP_JWT_VERIFY_PUBLICKEY_LOCATION=/jwt/publicKey.pem
-ENV SMALLRYE_JWT_SIGN_KEY_LOCATION=/jwt/privateKey.pem"
+ENV SMALLRYE_JWT_SIGN_KEY_LOCATION=/jwt/privateKey.pem
 ENV DB_PATH="/data/database.sqlite"
 ENTRYPOINT ["/opt/jboss/container/java/run/run-java.sh"]
