@@ -19,7 +19,7 @@ public class SqliteClient extends PanacheEntityBase {
     @Column(nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(length = 18, unique = true)
+    @Column(nullable = true, length = 18)
     private String document;
 
     @Column(length = 50)
@@ -28,7 +28,7 @@ public class SqliteClient extends PanacheEntityBase {
     @Column(length = 200)
     private String address;
 
-    @Column(nullable = false)
+    @Column
     private Long idLoja;
 
     private Boolean active;

@@ -18,7 +18,7 @@ public class SqliteSupplier extends PanacheEntityBase {
     @Column(nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(nullable = false, length = 18,  unique = true)
+    @Column(nullable = true, length = 18)
     private String document;
 
     @Column(nullable = false, length = 50)

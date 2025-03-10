@@ -16,7 +16,7 @@ public class SqliteFormaPagamento extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 150, unique = true)
     private String nome;
 
     @Column(nullable = true)

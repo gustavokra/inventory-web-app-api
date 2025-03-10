@@ -16,7 +16,7 @@ public class SqliteRole extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, unique = true)
     private String description;
 
     public SqliteRole() {

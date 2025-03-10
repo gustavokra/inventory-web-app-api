@@ -16,7 +16,7 @@ public class SqliteGrupo extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String nome;
 
     public Long getId() {
